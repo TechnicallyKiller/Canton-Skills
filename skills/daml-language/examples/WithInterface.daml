@@ -1,0 +1,34 @@
+-- Interface + implementing template. Interfaces let unrelated templates expose a
+-- common API and be exercised polymorphically (the pattern the Token Standard
+-- uses). Targets Daml SDK 3.4.x — verify against `dpm build` before relying on it.
+module WithInterface where
+
+-- The view: data any implementer must be able to project to.
+data AssetView = AssetView with
+    owner  : Party
+    amount : Decimal
+  deriving (Eq, Show)
+
+interface IAsset where
+  viewtype AssetView
+
+  -- An interface method implementers must provide.
+  setOwner : Party -> IAsset
+
+  choice Transfer : ContractId IAsset
+    with
+      newOwner : Party
+    controller (view this).owner
+    do
+      create (setOwner this newOwner)
+
+template Coin
+  with
+    owner  : Party
+    amount : Decimal
+  where
+    signatory owner
+
+    interface instance IAsset for Coin where
+      view = AssetView with owner, amount
+      setOwner newOwner = toInterface @IAsset (this with owner = newOwner)

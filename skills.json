@@ -1,0 +1,28 @@
+{
+  "$schema": "https://skills.ws/schema/catalog.json",
+  "name": "canton-dev-skills",
+  "version": "0.1.0",
+  "description": "Portable, production-grade agent skills for building on the Canton Network with Daml.",
+  "license": "MIT",
+  "homepage": "https://docs.canton.network",
+  "compatibleAgents": [
+    "claude-code",
+    "cursor",
+    "gemini",
+    "codex",
+    "copilot"
+  ],
+  "skills": [
+    { "name": "canton-mental-models", "path": "skills/canton-mental-models", "phase": 1, "stage": "draft" },
+    { "name": "daml-language", "path": "skills/daml-language", "phase": 1, "stage": "draft" },
+    { "name": "daml-authorization-patterns", "path": "skills/daml-authorization-patterns", "phase": 1, "stage": "draft" },
+    { "name": "daml-testing", "path": "skills/daml-testing", "phase": 1, "stage": "draft" },
+    { "name": "canton-ledger-api", "path": "skills/canton-ledger-api", "phase": 2, "stage": "draft" },
+    { "name": "canton-app-architecture", "path": "skills/canton-app-architecture", "phase": 2, "stage": "draft" },
+    { "name": "canton-token-standard", "path": "skills/canton-token-standard", "phase": 2, "stage": "draft" },
+    { "name": "canton-wallet-integration", "path": "skills/canton-wallet-integration", "phase": 3, "stage": "draft" },
+    { "name": "canton-deployment", "path": "skills/canton-deployment", "phase": 3, "stage": "draft" },
+    { "name": "daml-contract-upgrades", "path": "skills/daml-contract-upgrades", "phase": 3, "stage": "draft" },
+    { "name": "canton-production-ops", "path": "skills/canton-production-ops", "phase": 3, "stage": "draft" }
+  ]
+}

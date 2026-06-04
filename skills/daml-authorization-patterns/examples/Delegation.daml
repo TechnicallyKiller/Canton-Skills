@@ -1,0 +1,43 @@
+-- Delegation (power of attorney): the principal grants the attorney a standing
+-- right to act on their behalf, without approving each action. Targets Daml 3.4.x.
+module Delegation where
+
+template Asset
+  with
+    owner : Party
+  where
+    signatory owner
+
+    -- The owner can propose a transfer of their own asset.
+    choice Propose : ContractId TransferProposal
+      with newOwner : Party
+      controller owner
+      do create TransferProposal with asset = this, newOwner
+
+template TransferProposal
+  with
+    asset    : Asset
+    newOwner : Party
+  where
+    signatory asset.owner
+    observer  newOwner
+
+-- The principal signs this once; thereafter the attorney (an observer) may
+-- exercise the nonconsuming choice to act using the principal's authority.
+template PowerOfAttorney
+  with
+    principal : Party
+    attorney  : Party
+  where
+    signatory principal
+    observer  attorney
+
+    nonconsuming choice ActAsPrincipal : ContractId TransferProposal
+      with
+        assetCid : ContractId Asset
+        newOwner : Party
+      controller attorney
+      do
+        -- Runs with the principal's authority because PowerOfAttorney's
+        -- signatory (principal) authorizes the consequences of this exercise.
+        exercise assetCid Propose with newOwner

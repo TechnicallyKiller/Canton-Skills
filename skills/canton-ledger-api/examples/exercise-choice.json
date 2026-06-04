@@ -1,0 +1,18 @@
+{
+  "_comment": "POST /v2/commands/submit-and-wait — exercise a choice. Use templateId for template choices, or an interface id for interface choices. actAs must include the choice controller. Response returns updateId + completionOffset.",
+  "commands": [
+    {
+      "ExerciseCommand": {
+        "templateId": "PACKAGE_ID:MinimalTemplate:Account",
+        "contractId": "CONTRACT_ID_FROM_PRIOR_CREATE",
+        "choice": "Deposit",
+        "choiceArgument": { "amount": "50.0" }
+      }
+    }
+  ],
+  "commandId": "deposit-1700000001",
+  "actAs": ["ALICE_PARTY"],
+  "readAs": [],
+  "deduplicationPeriod": { "Empty": {} },
+  "disclosedContracts": []
+}

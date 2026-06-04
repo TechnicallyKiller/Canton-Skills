@@ -1,0 +1,32 @@
+-- Minimal Daml template: signatory, observer, ensure, consuming + nonconsuming
+-- choices. Targets Daml SDK 3.4.x. Build with `dpm build`.
+module MinimalTemplate where
+
+template Account
+  with
+    bank    : Party
+    owner   : Party
+    balance : Decimal
+  where
+    -- Both parties' authority is required to create or archive this contract.
+    signatory bank, owner
+    -- `owner` is already a signatory; shown here only to illustrate the keyword.
+    observer owner
+
+    -- Invariant enforced by the ledger at create time.
+    ensure balance >= 0.0
+
+    -- Consuming by default: exercising archives this contract and creates the
+    -- updated one. This is how state "changes" in Daml — archive + create.
+    choice Deposit : ContractId Account
+      with
+        amount : Decimal
+      controller owner
+      do
+        assertMsg "amount must be positive" (amount > 0.0)
+        create this with balance = balance + amount
+
+    -- Non-consuming: a read-style action that leaves the contract active.
+    nonconsuming choice GetBalance : Decimal
+      controller owner
+      do pure balance

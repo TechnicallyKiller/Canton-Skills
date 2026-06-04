@@ -1,0 +1,40 @@
+-- The test that actually validates a Canton model: prove an unauthorized party
+-- CANNOT act, using submitMustFail. Run with `dpm test`. Targets 3.4.x.
+module AuthorizationTest where
+
+import Daml.Script
+
+template Account
+  with
+    bank    : Party
+    owner   : Party
+    balance : Decimal
+  where
+    signatory bank, owner
+
+    choice Withdraw : ContractId Account
+      with amount : Decimal
+      controller owner          -- only the owner may withdraw
+      do create this with balance = balance - amount
+
+testOnlyOwnerCanWithdraw : Script ()
+testOnlyOwnerCanWithdraw = do
+  bank    <- allocateParty "Bank"
+  alice   <- allocateParty "Alice"
+  mallory <- allocateParty "Mallory"
+
+  accountCid <- submit bank do
+    createCmd Account with bank; owner = alice; balance = 100.0
+
+  -- Mallory is not the controller of Withdraw — the ledger must reject this.
+  submitMustFail mallory do
+    exerciseCmd accountCid (Withdraw with amount = 50.0)
+
+  -- Privacy: Mallory is neither signatory nor observer, so she sees nothing.
+  visible <- query @Account mallory
+  assertMsg "Mallory should not see Alice's account" (null visible)
+
+  -- The legitimate owner can withdraw.
+  _ <- submit alice do
+    exerciseCmd accountCid (Withdraw with amount = 50.0)
+  pure ()

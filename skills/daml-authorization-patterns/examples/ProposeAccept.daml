@@ -1,0 +1,30 @@
+-- Propose / Accept (initiate-and-accept): how two parties reach a jointly-signed
+-- contract when authority cannot be transferred transitively. Targets Daml 3.4.x.
+module ProposeAccept where
+
+-- The final agreement: both parties are signatories, so both must have authorized.
+template IssueAgreement
+  with
+    issuer : Party
+    owner  : Party
+  where
+    signatory issuer, owner
+
+-- The proposal: only the issuer has signed. The owner observes it and, by
+-- exercising Accept, contributes their authority to create the agreement.
+template IssueProposal
+  with
+    issuer : Party
+    owner  : Party
+  where
+    signatory issuer
+    observer  owner
+
+    choice Accept : ContractId IssueAgreement
+      controller owner
+      do create IssueAgreement with issuer, owner
+
+    -- Rejecting simply archives the proposal (consuming choice, no create).
+    choice Reject : ()
+      controller owner
+      do pure ()

@@ -1,0 +1,21 @@
+-- Contract key + maintainer. The key gives the contract a unique business
+-- identifier; the maintainer (a subset of the signatories) guarantees uniqueness.
+-- Targets Daml SDK 3.4.x.
+module WithKey where
+
+template Account
+  with
+    bank   : Party
+    number : Text
+    owner  : Party
+  where
+    signatory bank, owner
+
+    -- (bank, number) must be unique across all active Account contracts.
+    key (bank, number) : (Party, Text)
+    -- The bank maintains uniqueness; key._1 is the first tuple element (bank).
+    maintainer key._1
+
+    nonconsuming choice GetNumber : Text
+      controller owner
+      do pure number

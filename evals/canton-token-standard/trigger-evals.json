@@ -1,0 +1,18 @@
+[
+  { "query": "how do I issue my own token on Canton that wallets and exchanges will understand?", "should_trigger": true },
+  { "query": "I need to send Canton Coin from one party to another in my app — what's the flow?", "should_trigger": true },
+  { "query": "explain the transfer-offer / two-step transfer in the Token Standard and how acceptance works", "should_trigger": true },
+  { "query": "how do I do delivery-versus-payment so two legs settle atomically on Canton?", "should_trigger": true },
+  { "query": "my users have hundreds of tiny UTXOs and it's expensive — how should I manage holdings?", "should_trigger": true },
+  { "query": "coming from ERC-20, how do I model token balances and transfers on Canton properly?", "should_trigger": true },
+  { "query": "what's TransferFactory_Transfer and how do I get the disclosedContracts and choiceContextData from the registry?", "should_trigger": true },
+  { "query": "what is CIP-0056 and which interfaces do I have to implement for a token?", "should_trigger": true },
+  { "query": "what's the generic JSON body shape for an ExerciseCommand on the Ledger API", "should_trigger": false },
+  { "query": "write a Daml template for a non-token loyalty-points agreement between two parties", "should_trigger": false },
+  { "query": "how should I structure the backend and PQS for my app", "should_trigger": false },
+  { "query": "connect a user's wallet to my dApp with the dApp SDK", "should_trigger": false },
+  { "query": "model a propose-accept agreement where two parties must both sign", "should_trigger": false },
+  { "query": "how do ERC-20 approve and transferFrom work on Ethereum?", "should_trigger": false },
+  { "query": "deploy the Splice validator and onboard my node to the global synchronizer", "should_trigger": false },
+  { "query": "explain Canton's privacy model at a conceptual level", "should_trigger": false }
+]

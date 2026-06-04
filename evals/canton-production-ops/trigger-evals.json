@@ -1,0 +1,18 @@
+[
+  { "query": "I'm getting ABORTED and FAILED_PRECONDITION on submissions — should I retry these?", "should_trigger": true },
+  { "query": "my command timed out with DEADLINE_EXCEEDED — did it fail? how do I handle this safely?", "should_trigger": true },
+  { "query": "what's the right retry strategy for the different Canton error categories?", "should_trigger": true },
+  { "query": "secure my Ledger API for production — JWT, TLS, and where do I keep the signing keys?", "should_trigger": true },
+  { "query": "should validator private keys go in an HSM/KMS and how do I avoid impersonation risk?", "should_trigger": true },
+  { "query": "set up monitoring and backups for my participant node — there's no public explorer right?", "should_trigger": true },
+  { "query": "my validator is slow under load, how do I think about performance and pruning?", "should_trigger": true },
+  { "query": "how do I make my submissions idempotent so a retry doesn't double-execute?", "should_trigger": true },
+  { "query": "how do I run LocalNet and deploy to DevNet", "should_trigger": false },
+  { "query": "how do I add an Optional field to a deployed template safely", "should_trigger": false },
+  { "query": "what's the exact JSON request body for submit-and-wait", "should_trigger": false },
+  { "query": "write a Daml template with a consuming choice", "should_trigger": false },
+  { "query": "set up OAuth login for my React web app", "should_trigger": false },
+  { "query": "how should I lay out my backend, frontend, and PQS", "should_trigger": false },
+  { "query": "my Postgres queries are slow, how do I add indexes", "should_trigger": false },
+  { "query": "connect a user's wallet to my dApp", "should_trigger": false }
+]

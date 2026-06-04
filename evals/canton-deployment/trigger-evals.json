@@ -1,0 +1,18 @@
+[
+  { "query": "how do I run Canton locally to develop against — something about LocalNet and docker compose?", "should_trigger": true },
+  { "query": "what are the cn-quickstart make targets and which ports are the Ledger API vs JSON API on LocalNet?", "should_trigger": true },
+  { "query": "I want to deploy my Daml app to DevNet and onboard an external party — what's the flow?", "should_trigger": true },
+  { "query": "how do I upload and vet my DAR across the stakeholder validators so my new choice works?", "should_trigger": true },
+  { "query": "set up CI that builds the DAR, runs Daml Script tests, and deploys", "should_trigger": true },
+  { "query": "my make start fails bringing up the participants and postgres — how is LocalNet structured?", "should_trigger": true },
+  { "query": "how do I promote from LocalNet to TestNet to MainNet and what runs a validator node?", "should_trigger": true },
+  { "query": "how do I add an Optional field to my deployed template without breaking existing contracts?", "should_trigger": false },
+  { "query": "secure my Ledger API with JWT and TLS for production", "should_trigger": false },
+  { "query": "write a Daml template with a Transfer choice", "should_trigger": false },
+  { "query": "what's the JSON body to submit a create command to the participant", "should_trigger": false },
+  { "query": "connect my dApp to a user's Canton wallet", "should_trigger": false },
+  { "query": "how does the Token Standard two-step transfer work", "should_trigger": false },
+  { "query": "how should I structure my backend and PQS read model", "should_trigger": false },
+  { "query": "how do I deploy my Next.js app to Vercel", "should_trigger": false },
+  { "query": "handle a DEADLINE_EXCEEDED error from a command submission", "should_trigger": false }
+]

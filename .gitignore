@@ -1,0 +1,23 @@
+# Skill eval / workspace artifacts (skill-creator)
+*-workspace/
+evals/**/outputs/
+evals/**/*.local.json
+feedback.json
+
+# Daml / Canton build artifacts (in examples)
+.daml/
+*.dar
+.vscode/
+
+# Node / tooling
+node_modules/
+dist/
+.DS_Store
+Thumbs.db
+
+# Local example-compilation harness (WSL)
+.verify/
+
+# Env / secrets
+.env
+*.local

@@ -1,0 +1,18 @@
+[
+  { "query": "write a Daml template for a Bond with issuer and holder as signatories and a Redeem choice", "should_trigger": true },
+  { "query": "my .daml file won't compile: 'Couldn't match expected type ContractId with Update' on my choice — what's wrong?", "should_trigger": true },
+  { "query": "how do I add a contract key to my Account template and who should the maintainer be?", "should_trigger": true },
+  { "query": "convert this idea to Daml: a coin that can be split and merged, owner can transfer", "should_trigger": true },
+  { "query": "what's the difference between a consuming and nonconsuming choice and when do I use each", "should_trigger": true },
+  { "query": "review this template for me — i think i'm using createCmd inside a choice body and it errors", "should_trigger": true },
+  { "query": "how do interfaces work in Daml 3.x, I want several token templates to share a Transfer choice", "should_trigger": true },
+  { "query": "how do I loop over a list of payouts and create a contract for each inside a choice?", "should_trigger": true },
+  { "query": "I have two parties who both need to agree before the contract exists — how do I structure the authority?", "should_trigger": false },
+  { "query": "add tests for my Token template using Daml Script", "should_trigger": false },
+  { "query": "explain Canton's privacy model and why there's no global ledger", "should_trigger": false },
+  { "query": "how do I read active contracts from my participant over gRPC in Java", "should_trigger": false },
+  { "query": "how do I upgrade my deployed Daml package without breaking existing contracts", "should_trigger": false },
+  { "query": "write a Haskell function to parse this CSV with attoparsec", "should_trigger": false },
+  { "query": "set up my CI to build the DAR and deploy to DevNet", "should_trigger": false },
+  { "query": "design the delegation / power-of-attorney pattern so an agent can act for a principal", "should_trigger": false }
+]

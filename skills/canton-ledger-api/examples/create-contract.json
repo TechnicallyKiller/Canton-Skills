@@ -1,0 +1,20 @@
+{
+  "_comment": "POST /v2/commands/submit-and-wait — create a contract. Reads are scoped to actAs/readAs. Reuse commandId within the deduplicationPeriod for idempotent retries. Verify against GET /docs/openapi for your SDK 3.4.x.",
+  "commands": [
+    {
+      "CreateCommand": {
+        "templateId": "PACKAGE_ID:MinimalTemplate:Account",
+        "createArguments": {
+          "bank": "BANK_PARTY",
+          "owner": "ALICE_PARTY",
+          "balance": "100.0"
+        }
+      }
+    }
+  ],
+  "commandId": "create-account-1700000000",
+  "actAs": ["BANK_PARTY", "ALICE_PARTY"],
+  "readAs": [],
+  "deduplicationPeriod": { "Empty": {} },
+  "disclosedContracts": []
+}

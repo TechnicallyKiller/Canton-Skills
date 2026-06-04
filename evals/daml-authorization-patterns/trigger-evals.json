@@ -1,0 +1,18 @@
+[
+  { "query": "two parties need to agree before the agreement contract exists on the ledger — how do I model that in Daml?", "should_trigger": true },
+  { "query": "I want a custodian to be able to move a client's assets without approving every single transfer", "should_trigger": true },
+  { "query": "my Daml create fails because I'm naming the counterparty as a signatory — how do I actually get their authority?", "should_trigger": true },
+  { "query": "review my templates for privacy leaks, I think I added too many observers", "should_trigger": true },
+  { "query": "how do I do role-based permissions in Daml, like only an admin party can issue?", "should_trigger": true },
+  { "query": "I came from Solidity and put require(msg.sender == owner) logic in my choice — what's the Canton way?", "should_trigger": true },
+  { "query": "implement a propose / accept / reject / counter workflow for a trade", "should_trigger": true },
+  { "query": "three banks all have to sign one settlement contract, collected one at a time — pattern for that?", "should_trigger": true },
+  { "query": "what's the exact syntax for declaring a controller on a choice", "should_trigger": false },
+  { "query": "write a submitMustFail test that proves an unauthorized party can't accept the proposal", "should_trigger": false },
+  { "query": "explain why Canton consensus is targeted and not global", "should_trigger": false },
+  { "query": "how do I add a contract key and maintainer to this template", "should_trigger": false },
+  { "query": "how does the Token Standard transfer-offer flow work for Canton Coin", "should_trigger": false },
+  { "query": "set up OAuth so my users can authorize into my web app", "should_trigger": false },
+  { "query": "how do I manage party allocation and onboarding on DevNet", "should_trigger": false },
+  { "query": "what's the JSON Ledger API endpoint to exercise a choice", "should_trigger": false }
+]

@@ -1,0 +1,18 @@
+[
+  { "query": "add Daml Script tests for my Account template covering deposit and a failed withdraw", "should_trigger": true },
+  { "query": "how do I write a test that proves a party who isn't the controller can't exercise the choice?", "should_trigger": true },
+  { "query": "my Daml Script fails on submit — how do I allocate parties and submit as each one?", "should_trigger": true },
+  { "query": "what's submitMustFail and how do I assert a rejection in Daml", "should_trigger": true },
+  { "query": "write an end-to-end test for the propose/accept flow with Alice and Bob", "should_trigger": true },
+  { "query": "how do I query contracts as a specific party in a script and assert what they can see?", "should_trigger": true },
+  { "query": "i want to verify a non-stakeholder genuinely can't see the contract in a test", "should_trigger": true },
+  { "query": "how do I run my Daml tests from the command line", "should_trigger": true },
+  { "query": "write the Account template itself with a Deposit choice", "should_trigger": false },
+  { "query": "how should I design who signs a two-party agreement", "should_trigger": false },
+  { "query": "set up Jest tests for my React frontend that talks to the ledger", "should_trigger": false },
+  { "query": "how do I integration-test against a real LocalNet participant over the JSON API", "should_trigger": false },
+  { "query": "explain how Canton privacy means each party has its own view", "should_trigger": false },
+  { "query": "what's the difference between consuming and nonconsuming choices", "should_trigger": false },
+  { "query": "write a property-based test in Python with hypothesis for my parser", "should_trigger": false },
+  { "query": "how do I write a test for my Token Standard transfer in TypeScript with the wallet SDK", "should_trigger": false }
+]

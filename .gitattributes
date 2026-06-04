@@ -1,0 +1,11 @@
+# Normalize line endings: skills are consumed cross-platform (Cursor/Claude/Gemini
+# on any OS), so store text as LF in the repo.
+* text=auto eol=lf
+
+*.md    text eol=lf
+*.daml  text eol=lf
+*.json  text eol=lf
+*.sql   text eol=lf
+*.py    text eol=lf
+*.yml   text eol=lf
+*.yaml  text eol=lf

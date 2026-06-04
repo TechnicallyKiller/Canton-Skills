@@ -1,0 +1,18 @@
+[
+  { "query": "I'm an Ethereum dev starting on Canton next week. What do I actually need to unlearn before I write any code?", "should_trigger": true },
+  { "query": "why does everyone say canton isn't really a blockchain? whats different about it", "should_trigger": true },
+  { "query": "Designing a trade-settlement app on Canton Network. Before I model anything, help me get the architecture mindset right re: privacy and who sees what.", "should_trigger": true },
+  { "query": "Is there a global state on Canton I can just query like the EVM world state? trying to figure out how my backend reads data", "should_trigger": true },
+  { "query": "explain how consensus works on canton vs a normal L1, my team keeps assuming the whole network validates every tx", "should_trigger": true },
+  { "query": "porting our Solidity escrow contract to Daml — what's the conceptual mapping for msg.sender and require()?", "should_trigger": true },
+  { "query": "what's a synchronizer and a participant node, and how do parties relate to them?", "should_trigger": true },
+  { "query": "my mental model of Canton is basically 'Ethereum with privacy bolted on' — is that wrong?", "should_trigger": true },
+  { "query": "write me a Daml template for an Account with a deposit choice", "should_trigger": false },
+  { "query": "how do I submit a create command over the JSON Ledger API from my node backend", "should_trigger": false },
+  { "query": "add a submitMustFail test proving a non-owner can't exercise Withdraw", "should_trigger": false },
+  { "query": "how do I issue a token on Canton using the Token Standard", "should_trigger": false },
+  { "query": "set up LocalNet and upload my DAR to a participant", "should_trigger": false },
+  { "query": "explain how Ethereum's account abstraction (ERC-4337) bundlers work", "should_trigger": false },
+  { "query": "what's the propose-accept pattern in Daml and when do I use it for two-party agreement", "should_trigger": false },
+  { "query": "our Postgres read model is slow, how do I optimize PQS queries", "should_trigger": false }
+]

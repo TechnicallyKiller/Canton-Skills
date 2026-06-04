@@ -1,0 +1,18 @@
+[
+  { "query": "how do I connect my React dApp to a user's Canton wallet so they can approve transactions?", "should_trigger": true },
+  { "query": "what does sdk.prepareExecute do and how do I use the @canton-network/dapp-sdk to submit a command?", "should_trigger": true },
+  { "query": "I'm an exchange integrating Canton Coin — how do I attribute deposits, memo tags and vault parties?", "should_trigger": true },
+  { "query": "how do I onboard an external party that holds its own signing key (topology transactions)?", "should_trigger": true },
+  { "query": "external signing: how do I do prepare/sign/submit offline with signTransactionHash?", "should_trigger": true },
+  { "query": "how do I parse the transaction tree to show users their transfer history (locked vs unlocked)?", "should_trigger": true },
+  { "query": "why can't I just generate a fresh deposit address per user like on Ethereum?", "should_trigger": true },
+  { "query": "wallet SDK vs dApp SDK — which @canton-network package do I use for my wallet provider?", "should_trigger": true },
+  { "query": "explain the Token Standard two-step transfer factory and accept choices", "should_trigger": false },
+  { "query": "what's the generic JSON body to exercise a choice on the Ledger API", "should_trigger": false },
+  { "query": "write the Daml template for the asset being transferred", "should_trigger": false },
+  { "query": "how do I integrate MetaMask into my Ethereum dApp", "should_trigger": false },
+  { "query": "how should I structure my backend and frontend for a Canton app", "should_trigger": false },
+  { "query": "deploy my DAR to DevNet and run a validator", "should_trigger": false },
+  { "query": "handle ABORTED errors with a retry strategy", "should_trigger": false },
+  { "query": "build a React form with controlled inputs and validation", "should_trigger": false }
+]

@@ -1,0 +1,18 @@
+[
+  { "query": "how should I structure a Canton app end to end — Daml model, backend, frontend, where does access control live?", "should_trigger": true },
+  { "query": "should my React frontend talk to the Ledger API directly or go through a backend?", "should_trigger": true },
+  { "query": "my backend reads from PQS and it's getting slow with SELECT * and OFFSET pagination — how do I design this better?", "should_trigger": true },
+  { "query": "what's the recommended way for my service to read ledger state — stream events or query a store?", "should_trigger": true },
+  { "query": "walk me through the cn-quickstart project structure and how the pieces fit together", "should_trigger": true },
+  { "query": "I'm designing a new Canton dApp, what's the reference architecture and the 'fully mediated' approach?", "should_trigger": true },
+  { "query": "where should authentication and authorization live in my Canton app stack?", "should_trigger": true },
+  { "query": "Java or TypeScript backend for talking to the ledger, and how do I keep ledger concepts out of the browser?", "should_trigger": true },
+  { "query": "what's the exact JSON body to exercise a choice over /v2/commands/submit-and-wait", "should_trigger": false },
+  { "query": "write the Daml template and choices for my model", "should_trigger": false },
+  { "query": "how does the Token Standard two-step transfer work", "should_trigger": false },
+  { "query": "deploy my DAR to DevNet and onboard an external party", "should_trigger": false },
+  { "query": "explain Canton's privacy model and targeted consensus conceptually", "should_trigger": false },
+  { "query": "integrate the wallet SDK so users can sign from their Canton wallet", "should_trigger": false },
+  { "query": "design a clean hexagonal architecture for my generic Spring Boot microservice", "should_trigger": false },
+  { "query": "add Daml Script tests for my templates", "should_trigger": false }
+]

@@ -1,0 +1,18 @@
+[
+  { "query": "how do I add a field to my already-deployed Account template without breaking existing contracts?", "should_trigger": true },
+  { "query": "is changing this field's type a backward-compatible upgrade or will the compiler reject it?", "should_trigger": true },
+  { "query": "what goes in the daml.yaml upgrades field and how does the compiler validate v2 against v1?", "should_trigger": true },
+  { "query": "coming from Solidity — what's the Canton equivalent of a proxy/delegatecall upgrade pattern?", "should_trigger": true },
+  { "query": "I need a breaking change to my template — how do I migrate existing contracts to a new shape?", "should_trigger": true },
+  { "query": "how do package naming and symbolic references work so reads keep working across versions?", "should_trigger": true },
+  { "query": "can I remove an obsolete choice from a deployed template, or do I deprecate it?", "should_trigger": true },
+  { "query": "how do I upload and vet the new DAR on all the validators after upgrading?", "should_trigger": false },
+  { "query": "write a brand new Daml template from scratch with a couple of choices", "should_trigger": false },
+  { "query": "how do I run LocalNet and deploy my app to DevNet", "should_trigger": false },
+  { "query": "what's the JSON body to exercise a choice over the Ledger API", "should_trigger": false },
+  { "query": "secure my participant's Admin API and rotate KMS keys", "should_trigger": false },
+  { "query": "upgrade my npm dependencies to the latest versions", "should_trigger": false },
+  { "query": "write a migration to add a column to my Postgres users table", "should_trigger": false },
+  { "query": "explain Canton's privacy model conceptually", "should_trigger": false },
+  { "query": "model a propose-accept agreement between two parties", "should_trigger": false }
+]

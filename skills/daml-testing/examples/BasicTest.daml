@@ -1,0 +1,36 @@
+-- Self-contained Daml Script test: setup, submit as a party, exercise a choice,
+-- and query the result as an entitled party. Run with `dpm test`. Targets 3.4.x.
+module BasicTest where
+
+import Daml.Script
+
+template Account
+  with
+    bank    : Party
+    owner   : Party
+    balance : Decimal
+  where
+    signatory bank, owner
+    ensure balance >= 0.0
+
+    choice Deposit : ContractId Account
+      with amount : Decimal
+      controller owner
+      do
+        assertMsg "amount must be positive" (amount > 0.0)
+        create this with balance = balance + amount
+
+testDeposit : Script ()
+testDeposit = do
+  bank  <- allocateParty "Bank"
+  alice <- allocateParty "Alice"
+
+  accountCid <- submit bank do
+    createCmd Account with bank; owner = alice; balance = 100.0
+
+  accountCid2 <- submit alice do
+    exerciseCmd accountCid (Deposit with amount = 50.0)
+
+  -- Read back as the owner and assert the new balance.
+  Some account <- queryContractId alice accountCid2
+  assertMsg "balance should be 150" (account.balance == 150.0)
