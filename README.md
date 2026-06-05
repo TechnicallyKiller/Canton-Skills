@@ -30,13 +30,13 @@ onto the correct Canton model.
 
 ```bash
 # Install the whole catalog into the current project (auto-detects your agent)
-npx skills add <org>/canton-dev-skills
+npx skills add TechnicallyKiller/Canton-Skills
 
 # Global install, specific agents only
-npx skills add <org>/canton-dev-skills -g --agent claude-code cursor gemini
+npx skills add TechnicallyKiller/Canton-Skills -g --agent claude-code cursor gemini
 
 # Install a single skill
-npx skills add <org>/canton-dev-skills/skills/daml-language
+npx skills add TechnicallyKiller/Canton-Skills/skills/daml-language
 ```
 
 The CLI installs into each agent's native location (`.claude/skills/`,
