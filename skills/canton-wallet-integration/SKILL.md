@@ -44,7 +44,12 @@ await sdk.prepareExecute({
 ```
 
 Two layers: the high-level SDK (recommended) or the lower-level **CIP-103** Provider
-API (EIP-1193-style). Use the SDK unless you need raw provider control.
+API (EIP-1193-style). Use the SDK unless you need raw provider control. Other
+module-level methods: `disconnect()`, `onTxChanged()` (real-time updates).
+
+> The `@canton-network/dapp-sdk` / `@canton-network/wallet-sdk` packages are
+> **pre-1.0 and may introduce breaking changes** — pin the version and check the
+> changelog when upgrading.
 
 ## How Canton wallets differ from Web3 (design implications)
 
@@ -104,5 +109,7 @@ with the dApp SDK.
 
 ---
 
-> **Stage: draft.** Verified against integrations dApp SDK + wallet guidance (SDK
-> 3.4.x). Before `stable`: confirm current SDK package APIs and add evals.
+> **Stage: draft.** Package `@canton-network/dapp-sdk` and its methods
+> (`connect`/`listAccounts`/`prepareExecute`/`disconnect`/`onTxChanged`) verified on
+> npm + integrations docs (2026-06); pre-1.0. Before `stable`: run against a live
+> wallet and add evals.

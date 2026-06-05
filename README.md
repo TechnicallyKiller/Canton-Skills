@@ -49,19 +49,30 @@ cross-agent contract.
 Skills are intentionally **focused** — narrow, well-triggered, and composable —
 rather than one monolith. See [ROADMAP.md](ROADMAP.md) for build status.
 
-| Skill | What it does | Canton docs |
-|-------|--------------|-------------|
-| [`canton-mental-models`](skills/canton-mental-models) | Corrects EVM-brain defaults; the foundation every other skill builds on | M1–M2 |
-| [`daml-language`](skills/daml-language) | Write Daml: templates, choices, contract keys, interfaces, stdlib, time | M3 |
-| [`daml-authorization-patterns`](skills/daml-authorization-patterns) | Signatory/observer/controller modeling and multi-party design patterns | M3, deep dives |
-| [`daml-testing`](skills/daml-testing) | Daml Script test suites, ledger assertions, multi-party scenarios | M3 |
-| [`canton-ledger-api`](skills/canton-ledger-api) | gRPC + JSON Ledger API, Java/codegen bindings, command dedup, disclosure | M4, API ref |
-| [`canton-app-architecture`](skills/canton-app-architecture) | App topology: backend, frontend, PQS read model, SDK selection, observability | M4 |
-| [`canton-token-standard`](skills/canton-token-standard) | Token Standard, transfer offers, Canton Coin / Amulet, Splice | Token standard |
-| [`canton-wallet-integration`](skills/canton-wallet-integration) | dApp SDK, Wallet SDK, Wallet Gateway, exchange integration | Integrations |
-| [`canton-deployment`](skills/canton-deployment) | LocalNet → DevNet, party & package management, CI/CD | M5 |
-| [`daml-contract-upgrades`](skills/daml-contract-upgrades) | Smart-contract upgrades: compatibility, package naming/selection | M6 |
-| [`canton-production-ops`](skills/canton-production-ops) | Security, compliance, performance, error handling, monitoring | M7, node ops |
+**Verification legend** (so you know how far to trust each skill today):
+✅ **compiler-verified** — examples build/run on Daml SDK 3.4.11 ·
+🔎 **source-verified** — identifiers checked against Splice/npm source ·
+📄 **docs-verified** — authored from current canonical Canton docs, not yet run on a
+live system.
+
+| Skill | What it does | Status |
+|-------|--------------|--------|
+| [`canton-mental-models`](skills/canton-mental-models) | Corrects EVM-brain defaults; the foundation every other skill builds on | ✅ |
+| [`daml-language`](skills/daml-language) | Write Daml: templates, choices, interfaces, stdlib, time (keys are *not* supported on Canton 3.x) | ✅ |
+| [`daml-authorization-patterns`](skills/daml-authorization-patterns) | Signatory/observer/controller modeling and multi-party design patterns | ✅ |
+| [`daml-testing`](skills/daml-testing) | Daml Script test suites, ledger assertions, multi-party scenarios | ✅ |
+| [`canton-ledger-api`](skills/canton-ledger-api) | gRPC + JSON Ledger API, codegen bindings, command dedup, disclosure | 📄 |
+| [`canton-app-architecture`](skills/canton-app-architecture) | App topology: backend, frontend, PQS read model, SDK selection, observability | 📄 |
+| [`canton-token-standard`](skills/canton-token-standard) | Token Standard (CIP-0056), transfers, Canton Coin / Amulet, Splice | 🔎 |
+| [`canton-wallet-integration`](skills/canton-wallet-integration) | dApp SDK, Wallet SDK, Wallet Gateway, exchange integration | 🔎 |
+| [`canton-deployment`](skills/canton-deployment) | LocalNet → DevNet, party & package management, CI/CD | 📄 |
+| [`daml-contract-upgrades`](skills/daml-contract-upgrades) | Smart-contract upgrades: compatibility, package naming/selection | 📄 |
+| [`canton-production-ops`](skills/canton-production-ops) | Security, compliance, performance, error handling, monitoring | 📄 |
+
+> Honesty note: Phase-1 modeling skills (✅) are proven against the real compiler —
+> verifying them caught three Canton-3.x gotchas now baked into the skills. The 📄
+> skills are accurate to current docs but not yet exercised end-to-end on LocalNet;
+> that hardening is in progress.
 
 ## How a skill is built here
 
