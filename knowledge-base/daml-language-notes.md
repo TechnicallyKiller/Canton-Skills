@@ -48,7 +48,12 @@ choice UpdateTelephone
 
 - Templates: `template`, `with` (fields), `where`, `signatory`, `observer`, `ensure`.
 - Choices: `choice`/`nonconsuming choice`, `controller`, `do` body, return type.
-- Contract keys: `key`, `maintainer`, lookup/fetch semantics and pitfalls.
+- Contract keys: **NOT supported on Canton (Daml 3.x / SDK 3.4.x)** — `damlc`
+  rejects a `key` clause ("this feature is not currently supported. Contract keys").
+  Verified by compiling 2026-06. Model an id field + workflow uniqueness instead.
+  (Daml 2.x had `key`/`maintainer`; don't carry that habit into Canton.)
+- Interfaces: define in their **own package** separate from implementers — Canton
+  3.4 errors by default on same-package interface instances (`-Wupgrade-interfaces`).
 - Interfaces & view types; when to use interfaces vs templates.
 - Functional idioms: `Update` monad, `do` notation, records, ADTs, no mutation.
 - Standard library: `DA.List`, `DA.Map`, `DA.Optional`, `DA.Action`, `DA.Time`, etc.
@@ -65,7 +70,7 @@ choice UpdateTelephone
 ## Canonical patterns / snippets (version-pinned — TODO)
 
 - Minimal template with signatory + observer + one consuming choice.
-- Template with contract key + maintainer.
+- Unique-id template WITHOUT keys (keys unsupported on Canton).
 - Interface + implementing template.
 
 ## Open questions / to verify

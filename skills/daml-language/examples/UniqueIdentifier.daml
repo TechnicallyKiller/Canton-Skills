@@ -1,0 +1,20 @@
+-- Unique business identifier WITHOUT contract keys.
+-- Daml 2.x had `key`/`maintainer`, but contract keys are NOT supported on Canton
+-- (Daml 3.x / SDK 3.4.x) — damlc rejects a `key` clause. Model the identifier as a
+-- normal field and enforce uniqueness in the issuer's workflow. Targets SDK 3.4.x.
+module UniqueIdentifier where
+
+template Account
+  with
+    bank   : Party
+    number : Text     -- business identifier (NOT a ledger-enforced key)
+    owner  : Party
+  where
+    -- Uniqueness of `number` is the bank's responsibility when it creates the
+    -- contract (e.g. it checks its own records / a registry first), not something
+    -- the ledger enforces via a key.
+    signatory bank, owner
+
+    nonconsuming choice GetNumber : Text
+      controller owner
+      do pure number

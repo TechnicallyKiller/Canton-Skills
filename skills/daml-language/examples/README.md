@@ -1,10 +1,12 @@
 # daml-language examples
 
-Compilable Daml samples referenced by `../SKILL.md`. Each must build against the
-pinned Daml SDK (see [ROADMAP.md](../../../ROADMAP.md)).
+Compilable Daml samples referenced by `../SKILL.md`. **Verified with `dpm build`
+against Daml SDK 3.4.11.**
 
-Planned (to add during drafting):
-
-- `MinimalTemplate.daml` — template with signatory, observer, one consuming choice.
-- `WithKey.daml` — contract key + maintainer.
-- `WithInterface.daml` — interface + implementing template.
+- `MinimalTemplate.daml` — template with signatory, observer, `ensure`, consuming +
+  nonconsuming choices.
+- `UniqueIdentifier.daml` — a unique business id **without** contract keys (keys are
+  not supported on Canton 3.x).
+- `WithInterface.daml` — interface + implementing template. Note: Canton errors by
+  default when an interface is implemented in its own package (upgradeability);
+  define interfaces in a separate package in production.

@@ -23,7 +23,8 @@ testOnlyOwnerCanWithdraw = do
   alice   <- allocateParty "Alice"
   mallory <- allocateParty "Mallory"
 
-  accountCid <- submit bank do
+  -- Two signatories ⇒ both must authorize the create (submitMulti acts as both).
+  accountCid <- submitMulti [bank, alice] [] do
     createCmd Account with bank; owner = alice; balance = 100.0
 
   -- Mallory is not the controller of Withdraw — the ledger must reject this.

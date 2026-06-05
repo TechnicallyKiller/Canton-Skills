@@ -35,7 +35,10 @@ setup = do
   bank  <- allocateParty "Bank"
 
   -- Submit a command AS a party. Use *Cmd variants in scripts (not bare create).
-  accountCid <- submit bank do
+  -- This Account has two signatories (bank, owner), so BOTH must authorize the
+  -- create — a single `submit bank` fails with missing authorization. Use
+  -- submitMulti to act as several parties at once.
+  accountCid <- submitMulti [bank, alice] [] do
     createCmd Account with bank; owner = alice; balance = 100.0
 
   -- Exercise a choice as its controller.
@@ -93,6 +96,7 @@ testAuthorization = do
 | Submitting everything as one "god" party | Submit as the actual controller to exercise real authz |
 | Asserting against "global state" | `query`/`queryContractId` as an *entitled* party |
 | `create`/`exercise` in a script | Use `createCmd`/`exerciseCmd` in Script-land |
+| `submit p` to create a multi-signatory contract | `submitMulti [a, b] []` (all signatories must authorize) |
 
 ## Examples
 
@@ -107,5 +111,6 @@ Compilable samples in [`examples/`](examples): `BasicTest.daml`,
 
 ---
 
-> **Stage: draft.** Verified against Daml Script conventions (SDK 3.4.x). Before
-> `stable`: confirm examples run under `dpm test`.
+> **Stage: draft.** **Both example scripts pass under `dpm test` with SDK 3.4.11**
+> (verifying this caught that a 2-signatory create needs `submitMulti`). Before
+> `stable`: run trigger + behavior evals.

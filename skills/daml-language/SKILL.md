@@ -84,32 +84,40 @@ Rules that trip up agents:
 - **`archive cid`** is shorthand for `exercise cid Archive`. `Archive` is implicitly
   added to every template, controlled by the **signatories**.
 
-## Contract keys
+## Contract keys — NOT supported on Canton
 
-A key gives a contract a unique business identifier; `maintainer`s are the
-parties responsible for uniqueness (must be a subset of signatories).
+Daml 2.x had `key`/`maintainer` contract keys. **They are not supported in current
+Canton (Daml 3.x / SDK 3.4.x)** — `damlc` rejects a template with a `key` clause
+("this feature is not currently supported. Contract keys"). Do not reach for them
+out of Daml-2.x habit.
+
+Model a unique business identifier as a normal field, and enforce uniqueness in the
+workflow (an issuer/registry party that won't create a duplicate), passing
+`ContractId`s when you already hold them:
 
 ```daml
 template Account
   with
     bank   : Party
-    number : Text
+    number : Text     -- business identifier (NOT a ledger key)
     owner  : Party
   where
     signatory bank, owner
-    key (bank, number) : (Party, Text)
-    maintainer key._1            -- the bank maintains uniqueness
+    -- Uniqueness of `number` is the bank's responsibility in its create workflow,
+    -- not a ledger-enforced key.
 ```
-
-Pitfall: `fetchByKey` / `lookupByKey` require the maintainer's authority and read
-authorization — they are not a global lookup. Prefer passing `ContractId`s when you
-already hold them.
 
 ## Interfaces
 
 Interfaces let unrelated templates expose a common API and be exercised
 polymorphically. Use them when multiple contract types must be handled uniformly
 (e.g. the Token Standard); otherwise prefer plain templates.
+
+**Define an interface in its own package, separate from the templates that
+implement it.** Canton (3.4.x) errors by default when an interface is implemented in
+the same package it is defined in, because it harms upgradeability
+(`-Wupgrade-interfaces`). Same-package use compiles only if you downgrade that
+warning — fine for a throwaway sample, not for production.
 
 ```daml
 interface IAsset where
@@ -146,13 +154,13 @@ data AssetView = AssetView with owner : Party
 | `require(msg.sender == owner)` in the body | Declare `controller owner`; protocol enforces it |
 | `createCmd`/`exerciseCmd` inside a choice | Use `create`/`exercise` (Update monad) |
 | Imperative `for` loop over storage | `map`/`foldl`/recursion within `Update` |
-| `lookupByKey` as a global getter | Keys need maintainer + read auth; pass `ContractId`s |
+| Use Daml-2.x `key`/`maintainer` contract keys | Not supported on Canton 3.x — model an id field + pass `ContractId`s |
 | One giant template with mutable status flags | Separate templates / choices; archive+create transitions |
 
 ## Examples
 
-Compilable samples in [`examples/`](examples) (build with `dpm build`):
-`MinimalTemplate.daml`, `WithKey.daml`, `WithInterface.daml`.
+Compilable samples in [`examples/`](examples) (verified with `dpm build`,
+SDK 3.4.11): `MinimalTemplate.daml`, `UniqueIdentifier.daml`, `WithInterface.daml`.
 
 ## References
 
@@ -165,6 +173,7 @@ Compilable samples in [`examples/`](examples) (build with `dpm build`):
 
 ---
 
-> **Stage: draft.** Verified against M3 docs (SDK 3.4.x). Before `stable`: compile
-> every example under `dpm build`, and run trigger + behavior evals
+> **Stage: draft.** Verified against M3 docs; **all examples compile under
+> `dpm build` with SDK 3.4.11** (this is how we found contract keys are unsupported
+> on Canton 3.x). Before `stable`: run trigger + behavior evals
 > ([CONTRIBUTING.md](../../CONTRIBUTING.md)).

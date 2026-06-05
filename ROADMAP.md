@@ -65,3 +65,12 @@ docs guidance: use a recent stable Daml SDK with matching major.minor (3.4.x).
 
 > When a newer stable 3.4.x (or 3.5.x once stable) lands, re-verify examples
 > compile and bump this block.
+
+## Verification log
+
+- **2026-06-05** — All 7 Phase-1 Daml examples compiled with `dpm build` (SDK
+  3.4.11); both Daml Script tests pass under `dpm test`. Findings folded back into
+  the skills: (1) **contract keys are not supported on Canton 3.x** (`damlc`
+  rejects `key`); (2) an interface implemented in its own package errors by default
+  (`-Wupgrade-interfaces`) — define interfaces in a separate package; (3) creating
+  a multi-signatory contract in a script needs `submitMulti`, not `submit`.
