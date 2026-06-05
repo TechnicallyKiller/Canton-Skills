@@ -1,34 +1,47 @@
 # Token Standard transfer flow (CIP-0056, two-step FOP)
 
-Annotated reference for a free-of-payment transfer. Verify exact interface/choice
-names against the current Splice release before relying on it. Targets SDK 3.4.x.
+Annotated reference for a free-of-payment transfer, using the **real Splice Token
+Standard interface IDs** (verified against docs.sync.global / the
+[splice `token-standard/`](https://github.com/hyperledger-labs/splice/tree/main/token-standard)
+source, 2026-06). Targets Daml SDK 3.4.x / Splice. Choice-context payloads are
+registry-specific — always fetch them from the registry rather than hand-building.
+
+## Packages & interfaces
+
+| Package | Interface |
+|---------|-----------|
+| `splice-api-token-holding-v1` | `Splice.Api.Token.HoldingV1:Holding` (UTXO holdings) |
+| `splice-api-token-transfer-instruction-v1` | `...TransferInstructionV1:TransferFactory`, `:TransferInstruction` |
+| `splice-api-token-allocation-v1` | `...AllocationV1` (DVP) |
+| `splice-api-token-metadata-v1` | `...MetadataV1` |
 
 ## Actors
 
-- **Sender** (holds one or more `Holding` UTXOs of the instrument)
+- **Sender** (holds `Holding` UTXOs of the instrument)
 - **Receiver**
-- **Registry** (the token issuer's registry app; provides factories + context)
+- **Registry** (the instrument admin's registry app; provides factories + context)
 
-## Step 0 — discover the factory and context
+## Step 0 — discover the factory + choice context from the registry
 
-Call the registry's API to obtain the **transfer factory** contract plus the
-`disclosedContracts` and `choiceContextData` you must pass through on the exercise.
+The registry returns the `TransferFactory` contract id, the `disclosedContracts`
+you must pass through, and the `choiceContextData` (passed as `context`). The
+admin-party-id → registry-URL mapping is currently maintained by the wallet.
 
 ```
-GET  <registry>/registry/transfer-instruction/v1/transfer-factory   (illustrative)
-=> { factoryId, disclosedContracts[], choiceContext{...} }
+=> { factoryId, disclosedContracts[], choiceContextData }
 ```
 
-## Step 1 — sender creates the TransferInstruction (factory step)
+## Step 1 — sender exercises TransferFactory_Transfer (factory step)
 
-Exercise `TransferFactory_Transfer` on the factory via the JSON Ledger API. Select
-small-amount `Holding` UTXOs as inputs to keep UTXO count low.
+Interface id `#splice-api-token-transfer-instruction-v1:Splice.Api.Token.TransferInstructionV1:TransferFactory`,
+choice `TransferFactory_Transfer` (returns a `TransferInstructionResult`). Select
+small `Holding` UTXOs as `inputHoldingCids` to keep UTXO count low.
 
 ```json
 {
   "commands": [{
     "ExerciseCommand": {
-      "templateId": "INTERFACE_ID:Splice.Api.Token.TransferInstructionV1:TransferFactory",
+      "templateId": "#splice-api-token-transfer-instruction-v1:Splice.Api.Token.TransferInstructionV1:TransferFactory",
       "contractId": "FACTORY_CID",
       "choice": "TransferFactory_Transfer",
       "choiceArgument": {
@@ -38,46 +51,61 @@ small-amount `Holding` UTXOs as inputs to keep UTXO count low.
           "receiver": "RECEIVER_PARTY",
           "amount": "10.0",
           "instrumentId": { "admin": "REGISTRY_ADMIN_PARTY", "id": "INSTRUMENT" },
-          "inputHoldingCids": ["HOLDING_CID_1"]
+          "requestedAt": "2026-06-05T00:00:00Z",
+          "executeBefore": "2026-06-06T00:00:00Z",
+          "inputHoldingCids": ["HOLDING_CID_1"],
+          "meta": { "values": {} }
         },
-        "extraArgs": { "context": "CHOICE_CONTEXT_DATA", "meta": { "values": {} } }
+        "extraArgs": {
+          "context": "CHOICE_CONTEXT_DATA_FROM_REGISTRY",
+          "meta": { "values": {} }
+        }
       }
     }
   }],
   "commandId": "transfer-1700000000",
   "actAs": ["SENDER_PARTY"],
-  "disclosedContracts": ["...from registry choiceContext..."]
+  "disclosedContracts": ["...from registry..."]
 }
 ```
 
-Result: a `TransferInstruction` contract observable by the receiver.
+`Transfer` fields (verified): `sender`, `receiver`, `amount`, `instrumentId`
+(`{admin, id}`), `requestedAt` (must be in the **past**), `executeBefore` (must be
+in the **future** — the registry rejects an expired transfer, so the sender can
+retry), `inputHoldingCids` (`[ContractId Holding]`), `meta`.
 
-## Step 2 — receiver accepts
+## Step 2 — receiver accepts (or rejects / sender withdraws)
+
+`TransferInstruction` choices: **`TransferInstruction_Accept`** (receiver, when in
+`TransferPendingReceiverAcceptance`), **`TransferInstruction_Reject`** (receiver),
+**`TransferInstruction_Withdraw`** (sender), `TransferInstruction_Update`
+(registry).
 
 ```json
 {
   "commands": [{
     "ExerciseCommand": {
-      "templateId": "INTERFACE_ID:Splice.Api.Token.TransferInstructionV1:TransferInstruction",
+      "templateId": "#splice-api-token-transfer-instruction-v1:Splice.Api.Token.TransferInstructionV1:TransferInstruction",
       "contractId": "TRANSFER_INSTRUCTION_CID",
       "choice": "TransferInstruction_Accept",
-      "choiceArgument": { "extraArgs": { "context": "CHOICE_CONTEXT_DATA", "meta": { "values": {} } } }
+      "choiceArgument": {
+        "extraArgs": { "context": "CHOICE_CONTEXT_DATA_FROM_REGISTRY", "meta": { "values": {} } }
+      }
     }
   }],
   "commandId": "accept-1700000001",
   "actAs": ["RECEIVER_PARTY"],
-  "disclosedContracts": ["...from registry choiceContext..."]
+  "disclosedContracts": ["...from registry..."]
 }
 ```
 
-Result: the receiver now holds new `Holding` UTXO(s); the sender's inputs are
-consumed.
+Result: the receiver holds new `Holding` UTXO(s); the sender's inputs are consumed.
 
 ## Notes
 
 - **External parties** use the Ledger API **prepare → execute** flow instead of
   `submit-and-wait` (sign the prepared hash off-participant).
-- **DVP** (delivery-versus-payment) uses the **Allocation** interfaces instead, so
-  two legs settle atomically.
+- **DVP** (delivery-versus-payment) uses the **`AllocationV1`** interfaces so two
+  legs settle atomically — not the transfer-instruction flow above.
 - Set up **`MergeDelegation`** at onboarding so the registry can merge a user's
   UTXOs and keep the count low.

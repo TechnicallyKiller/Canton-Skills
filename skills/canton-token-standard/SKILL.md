@@ -21,21 +21,29 @@ Global Synchronizer. Use the standard so wallets and exchanges interoperate.
 
 Targets Daml SDK 3.4.x / Splice (tracks 3.4.11).
 
-## Core interfaces (CIP-0056)
+## Core interfaces (CIP-0056) — verified package IDs
 
-| Interface | Role |
-|-----------|------|
-| **Holding** | Portfolio view — active **UTXO** contracts tracking ownership. Keep **~<10 UTXOs/user** on average (validator cost/traffic). |
-| **Transfer Instruction** | Direct peer-to-peer / **free-of-payment (FOP)** transfer, two-step. |
-| **Allocation** / Allocation Instruction | **Delivery-versus-payment (DVP)** — conditional, synchronized exchange. |
-| **Token Metadata** | Standardized token info network-wide. |
+| Package · Interface | Role |
+|---------------------|------|
+| `splice-api-token-holding-v1` · `Splice.Api.Token.HoldingV1:Holding` | Portfolio view — active **UTXO** contracts tracking ownership. Keep **~<10 UTXOs/user** on average (validator cost/traffic). |
+| `splice-api-token-transfer-instruction-v1` · `…TransferInstructionV1:TransferFactory` / `:TransferInstruction` | Direct peer-to-peer / **free-of-payment (FOP)** transfer, two-step. |
+| `splice-api-token-allocation-v1` · `…AllocationV1` (+ `AllocationInstructionV1`) | **Delivery-versus-payment (DVP)** — conditional, synchronized exchange. |
+| `splice-api-token-metadata-v1` · `…MetadataV1` | Standardized token metadata. |
+
+Interface ids are package-qualified with `#`, e.g.
+`#splice-api-token-holding-v1:Splice.Api.Token.HoldingV1:Holding`.
 
 ## The two-step transfer (transfer-offer model)
 
-1. **Factory step** — the sender exercises **`TransferFactory_Transfer`** via the
-   token's **registry**, creating a `TransferInstruction` contract.
-2. **Acceptance** — the receiver exercises **`TransferInstruction_Accept`** to
-   complete the transfer.
+1. **Factory step** — the sender exercises **`TransferFactory_Transfer`** on the
+   factory fetched from the token's **registry**, creating a `TransferInstruction`
+   (returns `TransferInstructionResult`). The `Transfer` arg fields:
+   `sender`, `receiver`, `amount`, `instrumentId {admin, id}`, `requestedAt` (must
+   be in the **past**), `executeBefore` (must be in the **future**),
+   `inputHoldingCids : [ContractId Holding]`, `meta`.
+2. **Acceptance** — the receiver exercises **`TransferInstruction_Accept`**. Other
+   `TransferInstruction` choices: **`_Reject`** (receiver), **`_Withdraw`**
+   (sender), `_Update` (registry).
 
 Mechanics that an agent must get right:
 
@@ -87,6 +95,6 @@ Annotated transfer-flow reference in [`examples/transfer-flow.md`](examples/tran
 
 ---
 
-> **Stage: draft.** Verified against the Token Standard deep dive (CIP-0056, SDK
-> 3.4.x). Before `stable`: confirm exact choice/interface names against the current
-> Splice release and add evals.
+> **Stage: draft.** Interface/choice/package IDs and the `Transfer` record verified
+> against docs.sync.global + the splice `token-standard/` source (2026-06). Before
+> `stable`: run against a live registry on LocalNet and add evals.

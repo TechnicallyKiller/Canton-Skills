@@ -10,15 +10,25 @@
 
 ## Verified: the Token Standard (CIP-0056)
 
-Core interfaces:
+Core interfaces (package-qualified IDs verified vs docs.sync.global + splice
+`token-standard/` source, 2026-06):
 
-- **Holding** — a portfolio view; active **UTXO** contracts tracking ownership.
-  Guidance: keep *"below ~10 UTXOs per user on average"* (validator cost/traffic).
-- **Transfer Instruction** — direct peer-to-peer / **free-of-payment (FOP)**
-  transfers via a **two-step** workflow.
-- **Allocation & Allocation Instruction** — **delivery-versus-payment (DVP)**,
-  conditional/synchronized exchanges.
-- **Token Metadata** — standardized token info network-wide.
+- **Holding** — `#splice-api-token-holding-v1:Splice.Api.Token.HoldingV1:Holding`.
+  Portfolio view; active **UTXO** contracts. Keep *"below ~10 UTXOs per user on
+  average"* (validator cost/traffic).
+- **Transfer Instruction** —
+  `#splice-api-token-transfer-instruction-v1:Splice.Api.Token.TransferInstructionV1`
+  (`TransferFactory`, `TransferInstruction`). FOP, two-step.
+- **Allocation / Allocation Instruction** — `splice-api-token-allocation-v1`
+  (`AllocationV1`, `AllocationInstructionV1`). **DVP** atomic exchange.
+- **Token Metadata** — `splice-api-token-metadata-v1` (`MetadataV1`).
+
+Choices (verified): `TransferFactory_Transfer` (args `expectedAdmin`, `transfer`,
+`extraArgs`; returns `TransferInstructionResult`), `TransferFactory_PublicFetch`;
+`TransferInstruction_Accept` / `_Reject` (receiver), `_Withdraw` (sender),
+`_Update` (registry). `Transfer` record: `sender`, `receiver`, `amount`,
+`instrumentId {admin,id}`, `requestedAt` (past), `executeBefore` (future),
+`inputHoldingCids : [ContractId Holding]`, `meta`.
 
 ## Verified: two-step transfer (transfer-offer model)
 
