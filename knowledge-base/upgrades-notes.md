@@ -34,7 +34,9 @@ templates + an `Upgrade` choice on the old one to migrate.
 
 - Use **symbolic package references** `#package-name:Module:Template` (not package
   IDs) for cross-version ledger reads.
-- **Reverse-DNS** package naming to avoid conflicts.
+- **Hyphenated lowercase** package names (e.g. `example-account`). Dots are NOT
+  allowed; `damlc` enforces `^[A-Za-z][A-Za-z0-9]*(-[A-Za-z][A-Za-z0-9]*)*$`.
+  (Verified by compiling 2026-06 — a dotted reverse-DNS name is rejected.)
 - Compiler validates compatibility at build time against the v1 DAR named in
   `daml.yaml`'s **`upgrades:`** field (newer compiler can validate even if v1 source
   can't be recompiled).

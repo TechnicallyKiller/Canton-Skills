@@ -47,7 +47,9 @@ new shape — an explicit, authorized migration.
   recompiled).
 - Use **symbolic package references** `#package-name:Module:Template` (not raw
   package IDs) so ledger reads work across versions.
-- **Reverse-DNS package naming** to avoid conflicts; bump the version.
+- **Hyphenated lowercase package names** (e.g. `example-account`, like Splice's
+  `splice-api-token-holding-v1`). Dots are **not** allowed — `damlc` requires
+  `^[A-Za-z][A-Za-z0-9]*(-[A-Za-z][A-Za-z0-9]*)*$`. Bump the version per release.
 
 ## Anti-patterns to correct
 
@@ -77,5 +79,7 @@ field-addition upgrade with the `daml.yaml` wiring.
 
 ---
 
-> **Stage: draft.** Verified against M6 compatibility docs (SDK 3.4.x). Before
-> `stable`: compile a v1→v2 example pair and add evals.
+> **Stage: draft (compiler-verified).** Built a real v1→v2 multi-package upgrade
+> with SDK 3.4.11: adding an `Optional` field compiles; retyping a field is rejected
+> by the LF typechecker. Also caught: package names must be hyphenated (not dotted).
+> Before `stable`: add evals.

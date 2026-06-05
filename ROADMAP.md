@@ -74,3 +74,11 @@ docs guidance: use a recent stable Daml SDK with matching major.minor (3.4.x).
   rejects `key`); (2) an interface implemented in its own package errors by default
   (`-Wupgrade-interfaces`) — define interfaces in a separate package; (3) creating
   a multi-signatory contract in a script needs `submitMulti`, not `submit`.
+- **2026-06-05** — Built a real v1→v2 multi-package **upgrade** (SDK 3.4.11):
+  adding an `Optional` field compiles; retyping a field is rejected by the LF
+  typechecker. Finding: **package names must be hyphenated lowercase** — dotted
+  reverse-DNS names are rejected. `daml-contract-upgrades` → compiler-verified.
+- **2026-06-05** — `canton-token-standard` interface/choice/package IDs and the
+  `Transfer` record source-verified against docs.sync.global + the splice
+  `token-standard/` source. `canton-wallet-integration` dApp SDK API verified
+  against the `@canton-network/dapp-sdk` npm package.

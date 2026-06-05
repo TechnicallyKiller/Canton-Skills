@@ -66,7 +66,7 @@ live system.
 | [`canton-token-standard`](skills/canton-token-standard) | Token Standard (CIP-0056), transfers, Canton Coin / Amulet, Splice | 🔎 |
 | [`canton-wallet-integration`](skills/canton-wallet-integration) | dApp SDK, Wallet SDK, Wallet Gateway, exchange integration | 🔎 |
 | [`canton-deployment`](skills/canton-deployment) | LocalNet → DevNet, party & package management, CI/CD | 📄 |
-| [`daml-contract-upgrades`](skills/daml-contract-upgrades) | Smart-contract upgrades: compatibility, package naming/selection | 📄 |
+| [`daml-contract-upgrades`](skills/daml-contract-upgrades) | Smart-contract upgrades: compatibility, package naming/selection | ✅ |
 | [`canton-production-ops`](skills/canton-production-ops) | Security, compliance, performance, error handling, monitoring | 📄 |
 
 > Honesty note: Phase-1 modeling skills (✅) are proven against the real compiler —

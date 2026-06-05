@@ -7,7 +7,7 @@ SDK 3.4.x.
 ## v1
 
 ```daml
--- package: com.example.account, version 1.0.0
+-- package: example-account, version 1.0.0
 module Account where
 
 template Account
@@ -22,7 +22,7 @@ template Account
 ## v2 — compatible change
 
 ```daml
--- package: com.example.account, version 2.0.0
+-- package: example-account, version 2.0.0
 module Account where
 
 template Account
@@ -39,22 +39,27 @@ template Account
 
 ```yaml
 sdk-version: 3.4.11
-name: com.example.account
+name: example-account            # hyphenated lowercase — dots are NOT allowed
 version: 2.0.0
-upgrades: ../v1/.daml/dist/com.example.account-1.0.0.dar  # compiler validates v2 vs v1
+source: daml
+upgrades: ../v1/.daml/dist/example-account-1.0.0.dar  # compiler validates v2 vs v1
 dependencies:
   - daml-prim
   - daml-stdlib
 ```
 
 The compiler checks compatibility at build time against the named v1 DAR.
+**Verified** with SDK 3.4.11: v1 builds, the v2 above (adds an `Optional` field)
+builds, and a v2 that retypes `balance` is rejected — *"The upgraded template
+Account has changed the types of some of its original fields: Field 'balance'
+changed type from Numeric 10 to Text."*
 
 ## Reading across versions
 
 Use a symbolic package reference so reads work regardless of version:
 
 ```
-#com.example.account:Account:Account
+#example-account:Account:Account
 ```
 
 ## If you need a BREAKING change
