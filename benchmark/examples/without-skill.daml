@@ -1,0 +1,51 @@
+module Main where
+
+import Daml.Script
+
+template Account
+  with
+    bank          : Party
+    owner         : Party
+    accountNumber : Text
+    balance       : Decimal
+  where
+    signatory bank, owner
+
+    key (owner, accountNumber) : (Party, Text)
+    maintainer key._1
+
+    choice Deposit : ContractId Account
+      with
+        amount : Decimal
+      controller owner
+      do
+        assert (amount > 0.0)
+        create this with balance = balance + amount
+
+    choice Withdraw : ContractId Account
+      with
+        amount : Decimal
+      controller owner
+      do
+        assert (amount > 0.0)
+        assert (balance >= amount)
+        create this with balance = balance - amount
+
+setup : Script ()
+setup = script do
+  bank  <- allocatePartyWithHint "Bank"  (PartyIdHint "Bank")
+  alice <- allocatePartyWithHint "Alice" (PartyIdHint "Alice")
+
+  accountCid <- submitMulti [bank, alice] [] do
+    createCmd Account with
+      bank          = bank
+      owner         = alice
+      accountNumber = "ACC-001"
+      balance       = 0.0
+
+  accountCid <- submit alice do
+    exerciseCmd accountCid Deposit with
+      amount = 500.0
+
+  Some account <- queryContractId alice accountCid
+  assert (account.balance == 500.0)

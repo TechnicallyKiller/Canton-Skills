@@ -1,0 +1,74 @@
+Running single package build of bench as no multi-package.yaml was found.
+
+2026-06-05 19:20:02.98 [INFO]  [build] 
+Compiling bench to a DAR.
+File:     daml/Main.daml
+Hidden:   no
+Range:    36:12-36:33
+Source:   typecheck
+Severity: DsWarning
+Message: 
+[0;93mdaml/Main.daml:36:12: warning:
+    In the use of ‘allocatePartyWithHint’
+    (imported from Daml.Script, but defined in Daml.Script.Internal.Questions.PartyManagement):
+    Deprecated: "Daml 3.3 compatibility helper, use 'allocatePartyByHint' instead of 'allocatePartyWithHint'"[0m
+File:     daml/Main.daml
+Hidden:   no
+Range:    37:12-37:33
+Source:   typecheck
+Severity: DsWarning
+Message: 
+[0;93mdaml/Main.daml:37:12: warning:
+    In the use of ‘allocatePartyWithHint’
+    (imported from Daml.Script, but defined in Daml.Script.Internal.Questions.PartyManagement):
+    Deprecated: "Daml 3.3 compatibility helper, use 'allocatePartyByHint' instead of 'allocatePartyWithHint'"[0m
+File:     daml/Main.daml
+Hidden:   no
+Range:    39:17-39:28
+Source:   typecheck
+Severity: DsWarning
+Message: 
+[0;93mdaml/Main.daml:39:17: warning:
+    In the use of ‘submitMulti’
+    (imported from Daml.Script, but defined in Daml.Script.Internal.Questions.Submit):
+    Deprecated: "Legacy API, use `submit`, `actAs` and `readAs` separately"[0m
+File:     daml/Main.daml
+Hidden:   no
+Range:    5:10-10:28
+Source:   Core to Daml-LF
+Severity: DsError
+Message: 
+[0;91mFailure to process Daml program, this feature is not currently supported.
+Contract keys.
+[[, A, ,,  , c, ,,  , c, ,,  , o, ,,  , u, ,,  , n, ,,  , t, ]][0m
+File:     daml/Main.daml
+Hidden:   no
+Range:    36:12-36:33
+Source:   typecheck
+Severity: DsWarning
+Message: 
+[0;93mdaml/Main.daml:36:12: warning:
+    In the use of ‘allocatePartyWithHint’
+    (imported from Daml.Script, but defined in Daml.Script.Internal.Questions.PartyManagement):
+    Deprecated: "Daml 3.3 compatibility helper, use 'allocatePartyByHint' instead of 'allocatePartyWithHint'"[0m
+File:     daml/Main.daml
+Hidden:   no
+Range:    37:12-37:33
+Source:   typecheck
+Severity: DsWarning
+Message: 
+[0;93mdaml/Main.daml:37:12: warning:
+    In the use of ‘allocatePartyWithHint’
+    (imported from Daml.Script, but defined in Daml.Script.Internal.Questions.PartyManagement):
+    Deprecated: "Daml 3.3 compatibility helper, use 'allocatePartyByHint' instead of 'allocatePartyWithHint'"[0m
+File:     daml/Main.daml
+Hidden:   no
+Range:    39:17-39:28
+Source:   typecheck
+Severity: DsWarning
+Message: 
+[0;93mdaml/Main.daml:39:17: warning:
+    In the use of ‘submitMulti’
+    (imported from Daml.Script, but defined in Daml.Script.Internal.Questions.Submit):
+    Deprecated: "Legacy API, use `submit`, `actAs` and `readAs` separately"[0m
+ERROR: Creation of DAR file failed.

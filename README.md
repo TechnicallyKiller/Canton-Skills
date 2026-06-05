@@ -74,6 +74,20 @@ live system.
 > skills are accurate to current docs but not yet exercised end-to-end on LocalNet;
 > that hardening is in progress.
 
+## Does it actually help? (measured)
+
+A controlled, compile-verified benchmark — same task, same model (Sonnet), the only
+variable being whether the skill is in context:
+
+| Arm | Compiled (`dpm build`, SDK 3.4.11) |
+|-----|-------------------------------------|
+| **Without skill** | **0 / 3** ❌ — reached for unsupported contract keys |
+| **With skill** | **3 / 3** ✅ — avoided them, built clean |
+
+The skill's content was the single difference between Daml that compiles on Canton
+and Daml that doesn't. Full method, the verbatim diff, build logs, and caveats:
+[**benchmark/**](benchmark/).
+
 ## How a skill is built here
 
 Each skill is authored from a distilled, source-linked **knowledge base** rather

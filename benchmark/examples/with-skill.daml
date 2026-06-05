@@ -1,0 +1,52 @@
+module Main where
+
+import Daml.Script
+
+-- Uniqueness of accountNumber per owner is the bank's responsibility in its
+-- create workflow; contract keys are not supported on Canton 3.x.
+template Account
+  with
+    bank          : Party
+    owner         : Party
+    accountNumber : Text
+    balance       : Decimal
+  where
+    signatory bank, owner
+    ensure balance >= 0.0
+
+    choice Deposit
+      : ContractId Account
+      with
+        amount : Decimal
+      controller bank
+      do
+        assertMsg "deposit amount must be positive" (amount > 0.0)
+        create this with balance = balance + amount
+
+    choice Withdraw
+      : ContractId Account
+      with
+        amount : Decimal
+      controller owner
+      do
+        assertMsg "withdraw amount must be positive" (amount > 0.0)
+        -- ensure on the new contract rejects balance < 0
+        create this with balance = balance - amount
+
+test : Script ()
+test = do
+  bank  <- allocateParty "Bank"
+  alice <- allocateParty "Alice"
+
+  accountCid <- submitMulti [bank, alice] [] do
+    createCmd Account with
+      bank          = bank
+      owner         = alice
+      accountNumber = "ACC-001"
+      balance       = 0.0
+
+  accountCid2 <- submit bank do
+    exerciseCmd accountCid Deposit with amount = 500.0
+
+  Some account <- queryContractId alice accountCid2
+  assertMsg "balance should be 500.0 after deposit" (account.balance == 500.0)

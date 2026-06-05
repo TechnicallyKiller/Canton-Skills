@@ -1,0 +1,30 @@
+Running single package build of bench as no multi-package.yaml was found.
+
+2026-06-05 19:20:52.68 [INFO]  [build] 
+Compiling bench to a DAR.
+File:     daml/Main.daml
+Hidden:   no
+Range:    41:17-41:28
+Source:   typecheck
+Severity: DsWarning
+Message: 
+[0;93mdaml/Main.daml:41:17: warning:
+    In the use of ‘submitMulti’
+    (imported from Daml.Script, but defined in Daml.Script.Internal.Questions.Submit):
+    Deprecated: "Legacy API, use `submit`, `actAs` and `readAs` separately"[0m
+File:     daml
+Hidden:   no
+Range:    1:1-2:1
+Source:   Daml-LF typechecker
+Severity: DsWarning
+Message: 
+[0;93mwarning while type checking package:
+  This package defines templates or interfaces, and depends on daml-script.
+  Uploading this package to a ledger will also upload daml-script, which will bloat the package store on your participant.
+  It is recommended that scripts/tests are defined in a separate package to your templates, and that
+  you remove `fe2e0175af21ba46d48cda3614edb9e30f2bc6972c20eb1d09666fa81703aa2e (daml-script, 3.4.11)` from the dependencies in your daml.yaml
+  Upgrade this warning to an error -Werror=template-interface-depends-on-daml-script
+  Disable this warning entirely with -Wno-template-interface-depends-on-daml-script[0m
+
+2026-06-05 19:20:54.17 [INFO]  [build] 
+Created .daml/dist/bench-1.0.0.dar
