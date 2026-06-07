@@ -53,7 +53,8 @@ rather than one monolith. See [ROADMAP.md](ROADMAP.md) for build status.
 ✅ **verified** — examples compile on Daml SDK 3.4.11 and/or the skill was confirmed by
 building a real app against it (see [feedback/](feedback/)) ·
 🔎 **source-verified** — identifiers checked against Splice/npm source ·
-📄 **docs-verified** — authored from current canonical Canton docs, not yet run live.
+📄 **docs-verified** — authored from current canonical Canton docs, not yet run live ·
+🧪 **preview** — corroborated across official docs/whitepaper but pre-MainNet, not run live.
 
 | Skill | What it does | Status |
 |-------|--------------|--------|
@@ -68,7 +69,7 @@ building a real app against it (see [feedback/](feedback/)) ·
 | [`canton-deployment`](skills/canton-deployment) | LocalNet → DevNet, party & package management, CI/CD | ✅ |
 | [`daml-contract-upgrades`](skills/daml-contract-upgrades) | Smart-contract upgrades: compatibility, package naming/selection | ✅ |
 | [`canton-production-ops`](skills/canton-production-ops) | Security, compliance, performance, error handling, monitoring | ✅ |
-| [`canton-evm`](skills/canton-evm) | **EVM/Solidity on Canton via Zenith** — tooling, `external_call` atomic composability, determinism, Daml interop | 📄 |
+| [`canton-evm`](skills/canton-evm) | **EVM/Solidity on Canton via Zenith** — tooling, `external_call` atomic composability, determinism, Daml interop | 🧪 |
 
 > Honesty note: the ✅ skills are proven — Daml ones against the real compiler, the
 > app-level ones (ledger-api, app-architecture, deployment, production-ops) by

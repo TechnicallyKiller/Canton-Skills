@@ -5,8 +5,31 @@
 > - <https://docs.zenith.network/zenith-evm>
 > - <https://docs.zenith.network/zenith-stack>
 > - Launch coverage (Mar 2026): GlobeNewswire, The Block.
+> - **Corroborating (official Canton):** blog "Ethereum and Canton"; **Polyglot Canton
+>   Whitepaper** (11/02/25).
 >
-> Feeds `canton-evm`. **Drafted — docs-verified (cannot run live; pre-MainNet).**
+> Feeds `canton-evm`. **🧪 preview — corroborated across Zenith docs + Canton's own
+> blog/whitepaper, but pre-MainNet and not run against a live RPC.**
+
+## Cross-verification (2026-06, official Canton sources)
+
+- **`external_call()`** confirmed by Canton: *"leveraging the purpose-built
+  external_call() primitive, Solidity smart contracts interact seamlessly and
+  atomically with Daml smart contracts."*
+- **Atomic composability** confirmed: *"Zenith unlocks true atomic composability
+  between EVM-based applications and Canton-native applications"* — *"an impossibility
+  in traditional rollup environments."*
+- **Routing/settlement** confirmed: *"Zenith routes every EVM transaction natively
+  through the Canton protocol, encapsulating each EVM payload within a native Canton
+  transaction"*; state roots settle to Canton for *"unbreakable shared finality."*
+- **Determinism** confirmed (whitepaper): *"Each validator re-executes the same
+  external_call() locally, and if any validator obtains a different output, validation
+  fails, mirroring the same determinism rule as for any existing Daml primitive."*
+- **Privacy — CORRECTION to an earlier over-claim:** privacy is **app-level, you
+  implement it**, not an automatic "permissioned/privacy-scoped" property. Canton:
+  *"app logic handles the complexity… you implement the choices… from privacy, to
+  access control, and governance."* (Zenith Stack operators *additionally* control
+  env-level permissioning.)
 
 ## What Zenith is
 
@@ -56,7 +79,7 @@ Two things, don't conflate them:
 
 | ❌ Ethereum-L1 assumption | ✅ Zenith/Canton reality |
 |--------------------------|--------------------------|
-| Public global state + public events/mempool | Permissioned, privacy-scoped, operator-controlled environment |
+| Public global state + public events/mempool | Not public-by-default; privacy/access-control are *implemented* at the app/operator level (you choose them) |
 | Non-determinism is fine (block randomness, etc.) | Validators **re-execute** `external_call`; non-determinism → tx fails |
 | Move assets across chains via a bridge/oracle | First-class **atomic composability** via `external_call` (Daml); atomic swaps |
 | One public chain, one fixed chain ID, ETH gas | Many operator-run envs; each sets its own token, fees, ordering, (chain id) |

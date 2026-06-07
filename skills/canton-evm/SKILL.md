@@ -34,13 +34,20 @@ Solidity exactly as on Ethereum.
 **Does change — the four things that bite EVM devs:**
 
 1. **Determinism is mandatory.** Canton uses two-step validation: the submitter
-   executes, then **validators re-execute the same call**. If your contract's output
-   diverges between runs, the transaction **fails**. Avoid non-deterministic patterns
-   (relying on unpredictable `block.timestamp`/`block.prevrandao` for logic, off-chain
-   randomness, anything that won't replay identically).
-2. **No public global state.** A Zenith environment is **permissioned and
-   privacy-scoped** — operator-controlled access, not a public chain with a public
-   mempool and world-readable events. Don't assume anyone can read your state/events.
+   executes, then **validators re-execute the same `external_call()`**. Per the
+   Polyglot Canton whitepaper, *"if any validator obtains a different output,
+   validation fails — mirroring the same determinism rule as for any existing Daml
+   primitive."* So anything that won't replay identically across validators breaks the
+   tx (e.g. relying on unpredictable `block.timestamp`/`block.prevrandao` for logic, or
+   off-chain randomness — treat these as design smells until confirmed against the live
+   env).
+2. **Privacy & access control are *implemented*, not automatic.** This is **not** a
+   public-by-default global ledger (no public mempool / world-readable events like L1)
+   — but it isn't automatically private either. Per Canton: *"app logic handles the
+   complexity… you implement the choices you want to make as an application creator —
+   from privacy, to access control, and governance."* Operators of a Zenith Stack
+   environment additionally control permissioning at the env level. Don't assume
+   L1-style public state — and don't assume privacy you didn't implement.
 3. **Reaching Canton assets is atomic composability, not a bridge.** The
    **`external_call()`** primitive (implemented in **Daml**) lets Canton/Daml invoke
    the EVM env deterministically, enabling **atomic swaps between a Canton-native asset
@@ -80,7 +87,7 @@ for app/DeFi logic, Daml for the Canton-native asset + settlement, joined atomic
 
 | ❌ L1-Ethereum-by-default | ✅ Zenith/Canton-correct |
 |--------------------------|--------------------------|
-| Treat it as a public chain; assume readable state/events | Permissioned, privacy-scoped, operator-controlled |
+| Assume L1-style public state/events | Not public-by-default; privacy/access-control are *implemented* at the app/operator level |
 | Use non-deterministic logic (randomness, timestamp gambling) | Must replay identically — validators re-execute |
 | Bridge/oracle to move value to Canton | `external_call()` atomic composability / atomic swaps |
 | Assume one chain id / ETH gas / public mempool | Per-environment token, fees, ordering, (chain id) |
@@ -90,14 +97,19 @@ for app/DeFi logic, Daml for the Canton-native asset + settlement, joined atomic
 ## References
 
 - KB: [`zenith-evm-notes.md`](../../knowledge-base/zenith-evm-notes.md)
-- Docs: [Introduction](https://docs.zenith.network/introduction),
+- Zenith docs: [Introduction](https://docs.zenith.network/introduction),
   [Zenith EVM](https://docs.zenith.network/zenith-evm),
   [Zenith Stack](https://docs.zenith.network/zenith-stack).
+- Canton (corroborating, official): [Ethereum and Canton](https://www.canton.network/blog/ethereum-and-canton-unifying-public-innovation-with-institutional-scale),
+  [Polyglot Canton Whitepaper](https://www.canton.network/hubfs/Canton%20Network%20Files/whitepapers/Polyglot_Canton_Whitepaper_11_02_25.pdf).
 
 ---
 
-> **Stage: draft (docs-verified, pre-MainNet).** Built from the Zenith docs (2026-06);
-> not yet run against a live Zenith RPC. Before `stable`: pin concrete RPC URLs / chain
-> ids, the real `external_call()` Daml signature + per-env coordinator API, gas/fee and
-> any precompiles, and add a compilable Solidity + Daml-coordinator example once a
-> testnet is reachable.
+> **Stage: 🧪 preview (pre-MainNet).** The core claims here (`external_call`, atomic
+> composability, EVM-payload-in-Canton-tx, state-root settlement, the determinism rule)
+> are **corroborated across Zenith's docs *and* Canton's official blog + whitepaper** —
+> but this is **not yet run against a live Zenith RPC** (MainNet targeted Q2 2026).
+> Don't treat the specifics as battle-tested. Before `stable`: pin concrete RPC URLs /
+> chain ids, the real `external_call()` Daml signature + per-env coordinator API,
+> gas/fee + any precompiles, and add a compilable Solidity + Daml-coordinator example
+> once a testnet is reachable.
