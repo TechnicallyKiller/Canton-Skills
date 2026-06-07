@@ -22,6 +22,34 @@ starting on **LocalNet**, then **DevNet → TestNet → MainNet**.
 Targets Daml SDK 3.4.x. Canonical scaffold:
 [cn-quickstart](https://github.com/digital-asset/cn-quickstart).
 
+> ## ⚠️ Read this before choosing LocalNet
+>
+> **Full LocalNet (the Splice stack: 3 participants + SV + validators + PostgreSQL +
+> web apps) is heavy — budget ~32 GB RAM.** On a typical laptop it will thrash and
+> get OOM-killed; this costs hours before you realize the environment, not your code,
+> is the problem.
+>
+> **Decision:**
+> - **Laptop / < 32 GB RAM → develop against DevNet** (the shared Global Synchronizer
+>   dev network). You run only a lightweight validator/participant locally and connect
+>   out, instead of hosting the whole network — far smaller footprint.
+> - **Pure Daml model + Daml Script tests** need *no* network at all — just `dpm build`
+>   / `dpm test`. Do all model/authorization/test work this way first.
+> - **Full LocalNet** only when you genuinely need the whole topology offline (and have
+>   the RAM), e.g. testing Splice/Canton-Coin flows locally.
+>
+> Don't reach for LocalNet by default just because it's "local." Match the environment
+> to your machine and the task.
+
+## Choosing an environment
+
+| Task | Use | Footprint |
+|------|-----|-----------|
+| Write/test the Daml model | `dpm build` / `dpm test` (no network) | tiny |
+| App dev on a laptop | **DevNet** (lightweight local validator → shared net) | moderate |
+| Full offline topology / Splice flows | LocalNet (cn-quickstart) | **~32 GB RAM** |
+| Shared testing / pre-prod | DevNet → TestNet | n/a (remote) |
+
 ## LocalNet
 
 A **Docker Compose** network mirroring Canton topology locally: **3 participants**

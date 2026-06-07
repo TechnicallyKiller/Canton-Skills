@@ -33,6 +33,13 @@ Targets Daml SDK 3.4.x. Full spec at `GET /docs/openapi`.
 | Read active contracts | `POST /v2/state/active-contracts` |
 | Updates/transactions | `POST /v2/updates/...` |
 
+> **Response-shape gotcha (verified SDK 3.4.11):** the parties endpoints are not
+> symmetric. **`GET /v2/parties` returns a list** — read the party as
+> `partyDetails[0].party`. **`POST /v2/parties` returns a single object** — read it
+> as `partyDetails.party`. Don't assume the same shape for both; it's a small mismatch
+> that costs real debugging time. Check `GET /docs/openapi` for each endpoint's exact
+> shape rather than inferring.
+
 ### Create a contract
 
 `POST /v2/commands/submit-and-wait`:

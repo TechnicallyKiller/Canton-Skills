@@ -8,6 +8,23 @@ marketplace. Legend: ✅ accurate · ⚠️ gap · ❌ wrong.
 > compile + tests pass). The four app-level skills moved to ✅. See the ROADMAP
 > verification log.
 
+## Round 2 — operational feedback from finishing the app (2026-06-05, RESOLVED)
+
+The most important miss, found only by living with it:
+
+- **`canton-deployment` (biggest gap):** full **LocalNet needs ~32 GB RAM**; on a
+  laptop it OOM-kills and cost 3+ sessions. The skill should have led with "use
+  **DevNet** on a laptop, LocalNet only with the RAM." → **Fixed:** prominent
+  ⚠️ callout + "Choosing an environment" table at the top of the skill.
+- **`canton-ledger-api`:** JSON party endpoints aren't symmetric — `GET /v2/parties`
+  → `partyDetails[0].party` (array), `POST /v2/parties` → `partyDetails.party`
+  (object). → **Fixed:** response-shape gotcha note added.
+
+Lesson for the catalog: for an **ops** skill, the operational reality (resource cost,
+the *better* environment) IS the core value — a correct-but-impractical recommendation
+is still a failure. "Verified ✅" for an ops skill must mean "this is the right path
+for a real dev," not just "it ran once."
+
 ## Priority for next session (fix order)
 
 **❌ Errors — wrong content that will break devs' code (fix first):**

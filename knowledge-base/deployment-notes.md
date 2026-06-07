@@ -33,6 +33,13 @@ Ports follow `<role-digit><suffix>`: SV `4xxx`, app-provider `3xxx`, app-user
 Progression: **LocalNet → DevNet → TestNet → MainNet**. Operating a real app means
 running a **validator node** in DevNet/TestNet/MainNet.
 
+**Operational reality (from real use, 2026-06):** the full LocalNet Splice stack
+needs **~32 GB RAM** — on a laptop it gets OOM-killed and wastes hours. The skill MUST
+lead with this and steer laptop devs to **DevNet** (lightweight local validator →
+shared net) and to pure `dpm build`/`dpm test` for model work (no network). An ops
+skill that omits the resource cost / better alternative has failed at its core job,
+even when its mechanics are correct.
+
 ## Key concepts (to fill / expand)
 
 - **LocalNet** for local dev; **DevNet** for shared testing; the path between them.
