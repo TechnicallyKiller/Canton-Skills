@@ -44,7 +44,10 @@ Canton via **Zenith** (the EVM execution layer; SVM next, MainNet ~Q2 2026). Str
 bet: as EVM/SVM becomes the on-ramp for the broader dev population, the durable value
 shifts from Daml-syntax to **"build correctly on Canton, in any VM"** — the
 mental-model corrections transfer, and Daml still backs Canton-native assets +
-each Zenith env's coordination contract. Expect a `canton-svm` sibling later.
+each Zenith env's coordination contract. `canton-mental-models` is now VM-agnostic
+(serves Daml *and* Zenith/Solidity devs). A **`canton-svm`** sibling is **deferred
+until SVM docs/RPC exist** — building it now would repeat the over-claim risk we just
+removed from `canton-evm`.
 
 ## Definition of done (per skill)
 
