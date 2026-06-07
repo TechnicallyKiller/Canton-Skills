@@ -1,0 +1,17 @@
+---
+interface Props { cmd: string; class?: string }
+const { cmd, class: cls = '' } = Astro.props;
+---
+<div class={`group flex items-center gap-3 rounded-lg border border-border bg-black/40 px-4 py-3 font-mono text-sm ${cls}`}>
+  <span class="select-none text-accent">$</span>
+  <code class="flex-1 overflow-x-auto whitespace-nowrap text-text">{cmd}</code>
+  <button
+    type="button"
+    data-copy={cmd}
+    data-label="copy"
+    class="shrink-0 rounded-md border border-border px-2 py-1 text-xs text-muted transition hover:border-accent/60 hover:text-text"
+    aria-label="Copy command"
+  >
+    <span data-copy-label>copy</span>
+  </button>
+</div>

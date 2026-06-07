@@ -1,0 +1,50 @@
+---
+import { REPO } from '../data/skills';
+---
+<section id="proof" class="border-y border-border/60 bg-surface/30 py-20 sm:py-28">
+  <div class="container-x">
+    <div class="reveal mx-auto max-w-2xl text-center">
+      <span class="eyebrow">Why it works · measured</span>
+      <h2 class="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+        Same task. Same model. The skill is the difference.
+      </h2>
+      <p class="mt-4 text-muted">
+        We asked Sonnet to model a bank account with a <em>unique account number</em> — a trap that
+        tempts the model toward Daml contract keys, which Canton 3.x rejects. Then we compiled the output
+        with <code class="font-mono text-accent-2">dpm build</code> on Daml SDK 3.4.11.
+      </p>
+    </div>
+
+    <div class="reveal mx-auto mt-12 grid max-w-4xl gap-5 md:grid-cols-2">
+      <!-- Without -->
+      <div class="card border-rose-500/30 p-5">
+        <div class="flex items-center justify-between">
+          <span class="font-display font-semibold text-rose-300">Without the skill</span>
+          <span class="rounded-md border border-rose-500/40 bg-rose-500/10 px-2 py-0.5 font-mono text-xs text-rose-300">0 / 3 compiled</span>
+        </div>
+        <pre class="mt-4 overflow-x-auto rounded-lg border border-border bg-black/50 p-4 font-mono text-[12.5px] leading-relaxed"><code><span class="text-muted">    accountNumber : Text</span>
+<span class="text-rose-300">    key (owner, accountNumber) : (Party, Text)</span>
+<span class="text-rose-300">    maintainer key._1</span>  <span class="text-muted">-- ❌ keys</span></code></pre>
+        <p class="mt-3 font-mono text-xs text-rose-300/90">DsError: Contract keys. → DAR build failed</p>
+      </div>
+
+      <!-- With -->
+      <div class="card border-ok/30 p-5">
+        <div class="flex items-center justify-between">
+          <span class="font-display font-semibold text-ok">With the skill</span>
+          <span class="rounded-md border border-ok/40 bg-ok/10 px-2 py-0.5 font-mono text-xs text-ok">3 / 3 compiled</span>
+        </div>
+        <pre class="mt-4 overflow-x-auto rounded-lg border border-border bg-black/50 p-4 font-mono text-[12.5px] leading-relaxed"><code><span class="text-muted">    -- uniqueness is the bank's job; keys</span>
+<span class="text-muted">    -- aren't supported on Canton 3.x</span>
+<span class="text-ok">    accountNumber : Text</span>  <span class="text-muted">-- plain field ✅</span></code></pre>
+        <p class="mt-3 font-mono text-xs text-ok/90">RESULT_BUILD_OK · all 3 runs</p>
+      </div>
+    </div>
+
+    <p class="reveal mx-auto mt-6 max-w-2xl text-center text-xs text-muted">
+      A demonstration (n=3, one task, compile-verified) — not a broad statistical claim.
+      Full method, both generated files, and build logs in
+      <a href={`https://github.com/${REPO}/tree/main/benchmark`} class="text-accent underline-offset-2 hover:underline" target="_blank" rel="noopener">benchmark/</a>.
+    </p>
+  </div>
+</section>

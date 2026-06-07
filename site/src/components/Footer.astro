@@ -1,0 +1,20 @@
+---
+import { REPO } from '../data/skills';
+---
+<footer class="border-t border-border/60">
+  <div class="container-x flex flex-col items-center justify-between gap-4 py-10 sm:flex-row">
+    <div class="flex items-center gap-2.5">
+      <img src="/favicon.svg" alt="" width="22" height="22" />
+      <span class="font-display text-sm font-semibold">Canton Dev Skills</span>
+    </div>
+    <p class="text-center text-xs text-muted">
+      MIT licensed · Independent community catalog — not affiliated with or endorsed by Canton Network,
+      Digital Asset, or Zenith.
+    </p>
+    <div class="flex items-center gap-5 text-sm text-muted">
+      <a href={`https://github.com/${REPO}`} class="transition hover:text-text" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://docs.canton.network" class="transition hover:text-text" target="_blank" rel="noopener">Canton docs</a>
+      <a href="https://docs.zenith.network" class="transition hover:text-text" target="_blank" rel="noopener">Zenith docs</a>
+    </div>
+  </div>
+</footer>

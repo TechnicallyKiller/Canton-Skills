@@ -1,0 +1,44 @@
+---
+import { REPO } from '../data/skills';
+const stats = [
+  { n: '9 ✅', l: 'compiler / app-verified' },
+  { n: '2 🔎', l: 'source-verified' },
+  { n: '1 🧪', l: 'Zenith preview' },
+];
+---
+<section class="container-x py-20 sm:py-28">
+  <div class="reveal mx-auto grid max-w-4xl items-center gap-10 lg:grid-cols-2">
+    <div>
+      <span class="eyebrow">Hardened by real use</span>
+      <h2 class="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+        We built a real app with it. It caught a dozen issues.
+      </h2>
+      <p class="mt-4 leading-relaxed text-muted">
+        We dogfooded the catalog by building a full Spring + LocalNet invoice-financing app on Canton.
+        The build surfaced real gaps — a non-existent <code class="font-mono text-accent-2">applicationId</code> field,
+        authority that doesn’t propagate into nested exercises, the deprecated <code class="font-mono text-accent-2">submitMulti</code>,
+        the 32&nbsp;GB LocalNet reality — and every one is now fixed and recorded in the open.
+      </p>
+      <a href={`https://github.com/${REPO}/blob/main/feedback/invoice-financing-findings.md`}
+         class="mt-6 inline-flex btn-ghost" target="_blank" rel="noopener">
+        Read the findings →
+      </a>
+    </div>
+
+    <div class="card p-6">
+      <p class="font-mono text-xs uppercase tracking-wider text-muted">verification status</p>
+      <div class="mt-4 grid grid-cols-3 gap-3 text-center">
+        {stats.map((s) => (
+          <div class="rounded-lg border border-border bg-black/30 py-4">
+            <div class="font-display text-xl font-bold">{s.n}</div>
+            <div class="mt-1 text-[11px] leading-tight text-muted">{s.l}</div>
+          </div>
+        ))}
+      </div>
+      <p class="mt-4 text-sm leading-relaxed text-muted">
+        That loop — build, it bites, the catalog absorbs it, permanently — is the real moat.
+        Claims trace to a source-linked knowledge base, not to memory.
+      </p>
+    </div>
+  </div>
+</section>

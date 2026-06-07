@@ -1,0 +1,15 @@
+---
+const agents = ['Claude Code', 'Cursor', 'Gemini CLI', 'Codex', 'GitHub Copilot'];
+---
+<section class="border-y border-border/60 bg-surface/30">
+  <div class="container-x py-8">
+    <p class="text-center text-xs uppercase tracking-[0.22em] text-muted">
+      One catalog · installs into every major agent
+    </p>
+    <div class="mt-5 flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
+      {agents.map((a) => (
+        <span class="font-display text-base font-semibold text-muted/80 transition hover:text-text">{a}</span>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,48 @@
+---
+import CommandLine from './CommandLine.astro';
+import { INSTALL, SKILL_COUNT } from '../data/skills';
+---
+<section class="relative overflow-hidden">
+  <div class="pointer-events-none absolute inset-0 grid-bg"></div>
+  <div class="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-accent/20 blur-[140px] animate-drift"></div>
+
+  <div class="container-x relative pt-20 pb-16 sm:pt-28 sm:pb-24">
+    <div class="mx-auto max-w-3xl text-center">
+      <span class="eyebrow">Agent skills · Claude · Cursor · Gemini</span>
+      <h1 class="mt-5 font-display text-4xl font-bold leading-[1.08] tracking-tight sm:text-6xl">
+        Teach your AI agent to build on
+        <span class="gradient-text">Canton — correctly.</span>
+      </h1>
+      <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted">
+        Portable skills that make coding agents build <strong class="text-text">Canton Network</strong>,
+        <strong class="text-text">Daml</strong>, and <strong class="text-text">Zenith / EVM</strong> apps
+        the right way — correcting the mistakes they make by default. One source of truth,
+        installable into every major agent.
+      </p>
+
+      <div class="mx-auto mt-8 max-w-xl">
+        <CommandLine cmd={INSTALL} />
+      </div>
+
+      <div class="mt-7 flex flex-wrap items-center justify-center gap-3">
+        <a href="#proof" class="btn-primary">See the proof →</a>
+        <a href="#skills" class="btn-ghost">Browse the {SKILL_COUNT} skills</a>
+      </div>
+
+      <dl class="mx-auto mt-12 grid max-w-lg grid-cols-3 gap-4 text-center">
+        <div>
+          <dt class="font-display text-2xl font-bold text-text">{SKILL_COUNT}</dt>
+          <dd class="text-xs uppercase tracking-wider text-muted">focused skills</dd>
+        </div>
+        <div>
+          <dt class="font-display text-2xl font-bold gradient-text">3/3</dt>
+          <dd class="text-xs uppercase tracking-wider text-muted">compiles w/ skill</dd>
+        </div>
+        <div>
+          <dt class="font-display text-2xl font-bold text-text">5+</dt>
+          <dd class="text-xs uppercase tracking-wider text-muted">agents supported</dd>
+        </div>
+      </dl>
+    </div>
+  </div>
+</section>

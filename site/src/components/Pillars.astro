@@ -1,0 +1,30 @@
+---
+const pillars = [
+  { t: 'Privacy-first', d: 'No world-readable global state. Data reaches only the parties that need it — privacy is structural, not bolted on.' },
+  { t: 'No global ledger', d: 'Each participant sees only its own view. There is nothing to scan or index like an EVM world state.' },
+  { t: 'Structural authorization', d: 'Who can do what is declared in the model and enforced by the protocol — not by require / msg.sender checks.' },
+  { t: 'Targeted consensus', d: 'Agreement happens among the parties to a transaction, not across the whole network.' },
+];
+---
+<section class="container-x py-20 sm:py-28">
+  <div class="reveal mx-auto max-w-2xl text-center">
+    <span class="eyebrow">The problem</span>
+    <h2 class="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+      Canton isn’t an EVM chain. Agents get it wrong by default.
+    </h2>
+    <p class="mt-4 text-muted">
+      Trained mostly on Ethereum, coding agents reach for global state, <code class="font-mono text-accent-2">msg.sender</code>,
+      mutable storage, and contract keys — all wrong here. Every skill is built to flip these four defaults.
+    </p>
+  </div>
+
+  <div class="reveal mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    {pillars.map((p, i) => (
+      <div class="card p-5">
+        <div class="font-mono text-xs text-accent">0{i + 1}</div>
+        <h3 class="mt-2 font-display text-lg font-semibold">{p.t}</h3>
+        <p class="mt-2 text-sm leading-relaxed text-muted">{p.d}</p>
+      </div>
+    ))}
+  </div>
+</section>

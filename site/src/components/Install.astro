@@ -1,0 +1,30 @@
+---
+import CommandLine from './CommandLine.astro';
+import { INSTALL, REPO } from '../data/skills';
+---
+<section id="install" class="border-t border-border/60 bg-surface/30 py-20 sm:py-28">
+  <div class="container-x">
+    <div class="reveal mx-auto max-w-2xl text-center">
+      <span class="eyebrow">Install</span>
+      <h2 class="mt-4 font-display text-3xl font-bold tracking-tight sm:text-4xl">
+        One command. Every agent.
+      </h2>
+      <p class="mt-4 text-muted">
+        The skills install from a single source of truth into each agent’s native location —
+        <code class="font-mono text-accent-2">.claude/skills</code>, <code class="font-mono text-accent-2">.cursor/skills</code>,
+        <code class="font-mono text-accent-2">~/.gemini/skills</code> — so updates flow everywhere at once.
+      </p>
+    </div>
+
+    <div class="reveal mx-auto mt-8 max-w-xl space-y-3">
+      <CommandLine cmd={INSTALL} />
+      <CommandLine cmd={`${INSTALL} -g --agent claude-code cursor gemini`} />
+      <CommandLine cmd={`${INSTALL}/skills/daml-language`} />
+    </div>
+
+    <p class="reveal mx-auto mt-6 max-w-xl text-center text-xs text-muted">
+      Powered by the open <a href="https://github.com/vercel-labs/skills" class="text-accent underline-offset-2 hover:underline" target="_blank" rel="noopener">skills</a> CLI ·
+      <a href={`https://github.com/${REPO}`} class="text-accent underline-offset-2 hover:underline" target="_blank" rel="noopener">source on GitHub</a>
+    </p>
+  </div>
+</section>

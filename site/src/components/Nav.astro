@@ -1,0 +1,23 @@
+---
+import { REPO } from '../data/skills';
+---
+<header class="sticky top-0 z-50 border-b border-border/60 bg-bg/80 backdrop-blur">
+  <nav class="container-x flex h-16 items-center justify-between">
+    <a href="/" class="flex items-center gap-2.5">
+      <img src="/favicon.svg" alt="" width="26" height="26" />
+      <span class="font-display text-[15px] font-semibold tracking-tight">Canton Dev Skills</span>
+    </a>
+    <div class="hidden items-center gap-7 text-sm text-muted md:flex">
+      <a href="#skills" class="transition hover:text-text">Skills</a>
+      <a href="#proof" class="transition hover:text-text">Why it works</a>
+      <a href="#install" class="transition hover:text-text">Install</a>
+      <a
+        href={`https://github.com/${REPO}`}
+        class="btn-ghost !px-3 !py-1.5 !text-xs"
+        target="_blank"
+        rel="noopener"
+      >GitHub →</a>
+    </div>
+    <a href="#install" class="btn-primary !px-4 !py-2 !text-xs md:hidden">Install</a>
+  </nav>
+</header>
