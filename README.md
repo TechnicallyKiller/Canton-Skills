@@ -1,9 +1,12 @@
 # Canton Dev Skills
 
+**→ [canton-dev-skills.netlify.app](https://canton-dev-skills.netlify.app)** · install: `npx skills add TechnicallyKiller/Canton-Skills`
+
 Portable, production-grade **agent skills** for building on the
-[Canton Network](https://docs.canton.network) with Daml. One source of truth,
-installable into **Claude Code, Cursor, Gemini CLI, Codex, GitHub Copilot**, and
-30+ other agents via the open [`skills`](https://github.com/vercel-labs/skills) CLI.
+[Canton Network](https://docs.canton.network) with Daml — and now **EVM/Solidity via
+[Zenith](https://docs.zenith.network)**. One source of truth, installable into
+**Claude Code, Cursor, Gemini CLI, Codex, GitHub Copilot**, and 30+ other agents via
+the open [`skills`](https://github.com/vercel-labs/skills) CLI.
 
 > These skills don't just paste documentation into your agent. They **correct the
 > mental-model mistakes** an LLM makes on Canton by default — treating it like an
