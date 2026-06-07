@@ -1,0 +1,57 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import CommandLine from '../../components/CommandLine.astro';
+import { ALL_SKILLS, BADGES, TRACKS, REPO } from '../../data/skills';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('skills');
+  return entries.map((entry) => ({
+    params: { name: entry.id.split('/')[0] },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const name = entry.id.split('/')[0];
+const skill = ALL_SKILLS.find((s) => s.name === name);
+const badge = skill ? BADGES[skill.badge] : null;
+const track = TRACKS.find((t) => t.skills.some((s) => s.name === name));
+const { Content } = await render(entry);
+
+const ghUrl = `https://github.com/${REPO}/tree/main/skills/${name}`;
+const install = `npx skills add ${REPO}/skills/${name}`;
+---
+<Base title={`${name} — Canton Dev Skills`} description={entry.data.description}>
+  <Nav />
+  <main class="container-x py-12 sm:py-16">
+    <a href="/skills" class="font-mono text-xs text-muted transition hover:text-accent">← all skills</a>
+
+    <header class="mt-6 max-w-3xl">
+      {track && <p class="eyebrow">// {track.title.toLowerCase()}</p>}
+      <div class="mt-3 flex flex-wrap items-center gap-3">
+        <h1 class="font-mono text-2xl font-medium text-text">{name}</h1>
+        {badge && <span class={`badge ${badge.cls}`} title={badge.tip}>{badge.label}</span>}
+      </div>
+      <p class="mt-4 text-[15px] leading-relaxed text-muted">{entry.data.description}</p>
+
+      <div class="mt-6 space-y-2">
+        <CommandLine cmd={install} />
+        <a href={ghUrl} target="_blank" rel="noopener" class="inline-flex btn-ghost !py-2 !text-xs">
+          view source + examples on GitHub →
+        </a>
+      </div>
+    </header>
+
+    <article class="prose mt-10 max-w-3xl">
+      <Content />
+    </article>
+
+    <div class="mt-12 max-w-3xl border-t border-border pt-6">
+      <a href="/skills" class="font-mono text-xs text-muted transition hover:text-accent">← back to all skills</a>
+    </div>
+  </main>
+  <Footer />
+</Base>

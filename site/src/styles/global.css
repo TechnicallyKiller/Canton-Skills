@@ -61,6 +61,43 @@ body::after {
   }
 }
 
+/* rendered SKILL.md content */
+.prose { @apply text-[15px] leading-relaxed text-muted; }
+.prose > :first-child { margin-top: 0; }
+.prose h1 { @apply mb-5 font-display text-3xl font-bold tracking-tight text-text; }
+.prose h2 {
+  @apply mt-10 mb-3 border-b border-border pb-2 font-display text-xl font-semibold text-text;
+}
+.prose h3 { @apply mt-7 mb-2 font-display text-base font-semibold text-text; }
+.prose p { @apply my-4; }
+.prose strong { @apply font-semibold text-text; }
+.prose a { @apply text-accent underline-offset-2 hover:underline; }
+.prose ul { @apply my-4 list-disc space-y-1.5 pl-5 marker:text-border; }
+.prose ol { @apply my-4 list-decimal space-y-1.5 pl-5 marker:text-muted; }
+.prose li { @apply pl-1; }
+.prose blockquote {
+  @apply my-5 rounded-r border-l-2 border-accent/60 bg-surface/50 px-4 py-2 text-muted;
+}
+.prose hr { @apply my-8 border-border; }
+/* inline code */
+.prose :not(pre) > code {
+  @apply rounded border border-border bg-surface px-1.5 py-0.5 font-mono text-[13px] text-accent-2;
+}
+/* shiki code blocks */
+.prose pre.astro-code {
+  @apply my-5 overflow-x-auto rounded-lg border border-border p-4 font-mono text-[13px] leading-relaxed;
+  background-color: #06080E !important;
+}
+.prose pre.astro-code code { @apply font-mono; }
+/* tables (the anti-pattern grids) */
+.prose table {
+  @apply my-6 block w-full overflow-x-auto border-collapse text-sm sm:table;
+}
+.prose thead { @apply border-b border-border; }
+.prose th { @apply px-3 py-2 text-left font-display text-xs font-semibold uppercase tracking-wide text-accent-2; }
+.prose td { @apply border-t border-border/60 px-3 py-2 align-top; }
+.prose tr:hover td { @apply bg-surface/40; }
+
 /* reveal-on-scroll */
 .reveal { opacity: 0; transform: translateY(14px); }
 .reveal.in { opacity: 1; transform: none; transition: opacity .6s ease, transform .6s ease; }
