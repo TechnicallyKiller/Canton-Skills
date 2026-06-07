@@ -4,15 +4,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: '#080B14',
-        surface: '#0F1524',
-        'surface-2': '#141C30',
-        border: '#1E2740',
+        bg: '#07090F',
+        surface: '#0C111B',
+        'surface-2': '#111827',
+        border: '#1B2335',
         text: '#E6EAF2',
-        muted: '#8A96B0',
+        muted: '#7E8AA3',
         accent: '#4F7DFF',
         'accent-2': '#22D3EE',
-        ok: '#34D399',
+        ok: '#3DDC97',
+        fail: '#FB7185',
         warn: '#FBBF24',
         docs: '#94A3B8',
         preview: '#A78BFA',

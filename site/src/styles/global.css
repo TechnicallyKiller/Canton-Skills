@@ -2,65 +2,70 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: dark;
-}
-
-html {
-  scroll-behavior: smooth;
-}
+:root { color-scheme: dark; }
+html { scroll-behavior: smooth; }
 
 body {
   @apply bg-bg text-text font-sans antialiased;
-  background-image:
-    radial-gradient(900px 500px at 50% -10%, rgba(79, 125, 255, 0.16), transparent 70%),
-    radial-gradient(700px 500px at 90% 10%, rgba(34, 211, 238, 0.08), transparent 70%);
-  background-attachment: fixed;
+  /* faint dot-grid — structured, not glowy */
+  background-image: radial-gradient(rgba(120, 140, 190, 0.10) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: -1px -1px;
+}
+
+/* very subtle scanlines over the whole page — terminal texture */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.014) 0 1px, transparent 1px 3px);
 }
 
 @layer components {
-  .container-x {
-    @apply mx-auto w-full max-w-content px-5 sm:px-8;
+  .container-x { @apply mx-auto w-full max-w-content px-5 sm:px-8; }
+
+  /* mono eyebrow: // label */
+  .eyebrow {
+    @apply font-mono text-xs font-medium tracking-tight text-accent;
   }
-  .gradient-text {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(100deg, #fff 0%, #9fc0ff 40%, #4f7dff 70%, #22d3ee 100%);
-  }
+
   .card {
-    @apply rounded-xl border border-border bg-surface/70 backdrop-blur transition
-           duration-200 hover:border-accent/50 hover:bg-surface-2/70;
+    @apply rounded-lg border border-border bg-surface/80 transition duration-200
+           hover:border-accent/50;
   }
+
+  /* terminal window chrome */
+  .term {
+    @apply overflow-hidden rounded-lg border border-border bg-[#06080E];
+  }
+  .term-bar {
+    @apply flex items-center gap-1.5 border-b border-border bg-surface/60 px-3 py-2;
+  }
+  .term-dot { @apply h-2.5 w-2.5 rounded-full; }
+
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5
-           text-sm font-medium transition duration-200;
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-5 py-2.5
+           font-mono text-sm transition duration-200;
   }
   .btn-primary {
-    @apply btn text-white;
-    background-image: linear-gradient(100deg, #4f7dff, #22d3ee);
-    box-shadow: 0 8px 30px -10px rgba(79, 125, 255, 0.6);
+    @apply btn bg-accent text-white hover:bg-[#3D6BF0];
   }
-  .btn-primary:hover { filter: brightness(1.08); }
   .btn-ghost {
-    @apply btn border border-border text-text hover:border-accent/60 hover:bg-surface-2;
+    @apply btn border border-border text-text hover:border-accent/60 hover:bg-surface;
   }
-  .eyebrow {
-    @apply text-xs font-semibold uppercase tracking-[0.2em] text-accent;
-  }
-  .grid-bg {
-    background-image:
-      linear-gradient(rgba(30, 39, 64, 0.5) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(30, 39, 64, 0.5) 1px, transparent 1px);
-    background-size: 48px 48px;
-    mask-image: radial-gradient(700px 400px at 50% 0%, black, transparent 75%);
+
+  .badge {
+    @apply rounded border px-1.5 py-0.5 font-mono text-[10px] font-medium;
   }
 }
 
-/* Reveal-on-scroll (progressive enhancement) */
+/* reveal-on-scroll */
 .reveal { opacity: 0; transform: translateY(14px); }
 .reveal.in { opacity: 1; transform: none; transition: opacity .6s ease, transform .6s ease; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; }
-  .animate-drift { animation: none; }
 }

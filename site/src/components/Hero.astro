@@ -2,20 +2,22 @@
 import CommandLine from './CommandLine.astro';
 import { INSTALL, SKILL_COUNT } from '../data/skills';
 ---
-<section class="relative overflow-hidden">
-  <div class="pointer-events-none absolute inset-0 grid-bg"></div>
-  <div class="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-accent/20 blur-[140px] animate-drift"></div>
+<section class="relative overflow-hidden border-b border-border/60">
+  <!-- top hairline glow line, very subtle -->
+  <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent"></div>
 
   <div class="container-x relative pt-20 pb-16 sm:pt-28 sm:pb-24">
     <div class="mx-auto max-w-3xl text-center">
-      <span class="eyebrow">Agent skills · Claude · Cursor · Gemini</span>
+      <p class="eyebrow">// agent skills for canton · daml · zenith</p>
+
       <h1 class="mt-5 font-display text-4xl font-bold leading-[1.08] tracking-tight sm:text-6xl">
-        Teach your AI agent to build on
-        <span class="gradient-text">Canton — correctly.</span>
+        Teach your AI agent to build on Canton —
+        <span class="text-ok">correctly</span><span class="ml-0.5 inline-block w-[0.55ch] animate-pulse bg-ok align-baseline" style="height:0.9em">&nbsp;</span>
       </h1>
+
       <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted">
-        Portable skills that make coding agents build <strong class="text-text">Canton Network</strong>,
-        <strong class="text-text">Daml</strong>, and <strong class="text-text">Zenith / EVM</strong> apps
+        Portable skills that make coding agents build <strong class="font-semibold text-text">Canton Network</strong>,
+        <strong class="font-semibold text-text">Daml</strong>, and <strong class="font-semibold text-text">Zenith / EVM</strong> apps
         the right way — correcting the mistakes they make by default. One source of truth,
         installable into every major agent.
       </p>
@@ -25,24 +27,20 @@ import { INSTALL, SKILL_COUNT } from '../data/skills';
       </div>
 
       <div class="mt-7 flex flex-wrap items-center justify-center gap-3">
-        <a href="#proof" class="btn-primary">See the proof →</a>
-        <a href="#skills" class="btn-ghost">Browse the {SKILL_COUNT} skills</a>
+        <a href="#proof" class="btn-primary">▸ see the proof</a>
+        <a href="#skills" class="btn-ghost">browse {SKILL_COUNT} skills</a>
       </div>
 
-      <dl class="mx-auto mt-12 grid max-w-lg grid-cols-3 gap-4 text-center">
-        <div>
-          <dt class="font-display text-2xl font-bold text-text">{SKILL_COUNT}</dt>
-          <dd class="text-xs uppercase tracking-wider text-muted">focused skills</dd>
-        </div>
-        <div>
-          <dt class="font-display text-2xl font-bold gradient-text">3/3</dt>
-          <dd class="text-xs uppercase tracking-wider text-muted">compiles w/ skill</dd>
-        </div>
-        <div>
-          <dt class="font-display text-2xl font-bold text-text">5+</dt>
-          <dd class="text-xs uppercase tracking-wider text-muted">agents supported</dd>
-        </div>
-      </dl>
+      <!-- terminal-style status line -->
+      <div class="mx-auto mt-12 flex max-w-lg flex-wrap items-center justify-center gap-x-6 gap-y-2 font-mono text-xs text-muted">
+        <span><span class="text-text">{SKILL_COUNT}</span> skills</span>
+        <span class="text-border">|</span>
+        <span><span class="text-ok">3/3</span> compiles w/ skill</span>
+        <span class="text-border">|</span>
+        <span><span class="text-text">5+</span> agents</span>
+        <span class="text-border">|</span>
+        <span><span class="text-text">SDK 3.4.11</span> verified</span>
+      </div>
     </div>
   </div>
 </section>
