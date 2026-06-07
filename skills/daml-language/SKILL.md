@@ -146,6 +146,10 @@ data AssetView = AssetView with owner : Party
 (`fromOptional`, `optional`), `DA.Map`/`DA.Set`, `DA.Action` (`when`, `unless`,
 `forA`), `DA.Text`, `DA.Time`. Import explicitly, e.g. `import DA.List (sortOn)`.
 
+Gotcha (verified SDK 3.4.11): **`Date` and `Time` are built-in types — do not
+`import DA.Date (Date)`** (the module doesn't export it; the import errors). Use
+`Date`/`Time` directly; import `DA.Date`/`DA.Time` only for the helper *functions*.
+
 ## Anti-patterns to correct
 
 | ❌ Wrong-by-default (EVM/imperative) | ✅ Daml-correct |

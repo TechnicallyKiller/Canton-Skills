@@ -76,6 +76,27 @@ Java or TypeScript both have first-class codegen + Ledger API support. Pick by t
 fit; generate typed bindings from the DAR rather than hand-rolling JSON (see
 [`canton-ledger-api`](../canton-ledger-api)).
 
+## Wiring Java codegen (transcode) — the part that's easy to miss
+
+Generating the Java bindings from the DAR needs four Gradle steps (verified with the
+cn-quickstart `build.gradle.kts`, SDK 3.4.11):
+
+```kotlin
+buildscript { dependencies { classpath("com.daml:codegen-java-daml3_4:<sdk>") } }
+
+tasks.register<JavaCodegenTask>("codeGen") {       // (b) point it at the built DAR
+    dar.set(file("../daml/InvoiceFinancing/.daml/dist/<name>-<ver>.dar"))
+    outputDir.set(layout.buildDirectory.dir("generated-daml-bindings"))
+}
+sourceSets.main { java.srcDir("build/generated-daml-bindings") }   // (c) add to sources
+tasks.named("compileJava") { dependsOn("codeGen") }                // (d) order
+```
+
+Codegen emits a central **`daml/Daml.java`** with an **`ENTITIES`** registry of every
+template + choice codec. **Both** layers depend on it: the Ledger-API layer (proto ↔
+DTO) for commands, and the PQS layer (JSON ↔ DTO) for reads. Treat `ENTITIES` as the
+single wiring point when constructing both.
+
 ## Anti-patterns to correct
 
 | ❌ Wrong-by-default | ✅ Canton-correct |

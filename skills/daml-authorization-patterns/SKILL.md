@@ -38,6 +38,39 @@ else as a signatory — you don't hold their authority. To obtain it you need th
 exercise a choice (propose/accept) or to have pre-delegated it. This is the
 single most common thing an EVM-trained agent gets wrong.
 
+## Authority in nested exercises (the boundary that bites)
+
+When a choice body **exercises another choice**, the inner exercise runs with the
+authority of **`actors(inner choice) ∪ signatories(inner contract)`** — the
+*parent's* surplus authority does **not** flow into the child. Verified the hard way
+(SDK 3.4.11): a `create` inside the nested body fails with "missing authorization"
+even though the parent transaction holds that authority.
+
+**Worked example — assign a 2-party `Invoice` (signatories supplier+buyer) to a
+financier, driven from a `FinancingOffer` (signatory financier):**
+
+```daml
+-- AcceptOffer is on FinancingOffer (signatory financier), controller supplier.
+-- Its body exercises Assign on the Invoice. The financier's authority is present
+-- *here* (offer signatory), but it does NOT propagate into Assign's body...
+choice AcceptOffer : ContractId Invoice
+  controller supplier
+  do exercise invoiceCid Assign with newCreditor = financier
+
+-- ...so Assign must obtain the financier's authority itself, as a CO-CONTROLLER:
+choice Assign : ContractId Invoice
+  with newCreditor : Party
+  controller creditor, newCreditor      -- ✅ both, not just `creditor`
+  do create this with creditor = newCreditor
+  -- actors(Assign) = {supplier, financier} ∪ signatories(Invoice) {supplier, buyer}
+  -- = {supplier, financier, buyer} → enough to create Invoice(creditor=financier).
+```
+
+With `controller creditor` alone, the inner `create` fails — the financier's
+authority sat in the parent and never reached the child. The fix is structural: name
+every party the inner action needs as a controller of the inner choice. Prove it
+with a `submitMustFail` (see [`daml-testing`](../daml-testing)).
+
 ## Design order
 
 1. **Signatories** — who must authorize, and therefore who can see it. Minimal but

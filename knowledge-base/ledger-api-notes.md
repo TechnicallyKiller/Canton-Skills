@@ -42,10 +42,25 @@ drive subsequent `/v2/state/active-contracts` reads.
 **Read** active contracts: `POST /v2/state/active-contracts` (event format +
 filters + offset). Reads are **privacy-scoped to actAs/readAs parties**.
 
-Command metadata wrappers: `userId`/`applicationId`, `commandId` (drives
-**deduplication**), `actAs`, `readAs`, `disclosedContracts` (explicit disclosure).
+Command metadata wrappers: `commandId` (drives **deduplication**), `actAs`,
+`readAs`, `disclosedContracts` (explicit disclosure). **There is no `applicationId`
+field on `Commands` in v2 (SDK 3.4.11)** — the application/user identity is conveyed
+by the **JWT**, not the command body. (Verified building the Java bindings 2026-06;
+v1's `applicationId` was renamed `userId` and removed from the command.)
 
 Full spec: `GET /docs/openapi`.
+
+## Verified: Java bindings (transcode codegen) gotchas
+
+From building a real Spring backend (SDK 3.4.11):
+- **No `Commands.setApplicationId()`** — app id is in the JWT (see above).
+- **`ContractId<T>.getContractId` is a public field, not a method** — no `()`.
+- Daml **`Date` → `java.time.LocalDate`** (`LocalDate.parse(iso)` works); other
+  primitives map naturally (`Decimal`→`BigDecimal`, `Party`/`Text`→`String`).
+- Tuple results `(A, B)` → `daml_prim_da_types.da.types.Tuple2<A,B>` with fields
+  `get_1` / `get_2`.
+- Codegen emits a central `daml/Daml.java` with an **`ENTITIES`** registry that both
+  the Ledger-API (proto↔DTO) and PQS (JSON↔DTO) layers depend on.
 
 ## Key concepts (to fill / expand)
 

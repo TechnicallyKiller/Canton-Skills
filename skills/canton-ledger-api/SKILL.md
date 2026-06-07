@@ -103,6 +103,19 @@ Generate typed bindings from the DAR (Java / TypeScript) rather than hand-buildi
 JSON: template & interface companions, JSON encode/decode. Keep codegen pinned to
 the same SDK that built the DAR.
 
+**Java binding gotchas (verified against SDK 3.4.11 transcode codegen):**
+
+- **No `applicationId` on `Commands`** — there is no `setApplicationId()`. The
+  application/user identity travels in the **JWT**, not the command. (v1's
+  `applicationId` became `userId` and left the command body.)
+- **`ContractId<T>.getContractId` is a public field, not a method** — no `()`.
+- Daml **`Date` → `java.time.LocalDate`** (`LocalDate.parse(iso)`); `Decimal` →
+  `BigDecimal`; `Party`/`Text` → `String`.
+- Tuple choice results `(A, B)` → `da.types.Tuple2<A,B>` with fields `get_1`/`get_2`.
+- Codegen emits `daml/Daml.java` with a central **`ENTITIES`** registry that both the
+  Ledger-API and PQS layers wire through (see
+  [`canton-app-architecture`](../canton-app-architecture)).
+
 ## Anti-patterns to correct
 
 | ❌ Wrong-by-default | ✅ Canton-correct |

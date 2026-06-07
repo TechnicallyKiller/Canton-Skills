@@ -1,7 +1,12 @@
 # Skill Feedback — Invoice Financing Demo (2026-06-05)
 
 Discrepancies found while dogfooding the catalog to build the Canton invoice-financing
-marketplace. **Action these next session.** Legend: ✅ accurate · ⚠️ gap · ❌ wrong.
+marketplace. Legend: ✅ accurate · ⚠️ gap · ❌ wrong.
+
+> **STATUS: RESOLVED (2026-06-05).** All ❌ errors and ⚠️ gaps below have been applied
+> to the skills/KB; the `submitMulti`→`actAs` change was re-verified (examples still
+> compile + tests pass). The four app-level skills moved to ✅. See the ROADMAP
+> verification log.
 
 ## Priority for next session (fix order)
 

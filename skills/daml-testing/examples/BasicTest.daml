@@ -27,8 +27,9 @@ testDeposit = do
 
   -- Account has TWO signatories (bank, owner), so BOTH must authorize creation.
   -- A single `submit bank` would fail with a missing-authorization error — use
-  -- submitMulti to act as both parties (or model a propose/accept flow).
-  accountCid <- submitMulti [bank, alice] [] do
+  -- `actAs` to submit as both parties (or model a propose/accept flow).
+  -- (`submitMulti [..] []` also works but is deprecated in SDK 3.4.x.)
+  accountCid <- submit (actAs [bank, alice]) do
     createCmd Account with bank; owner = alice; balance = 100.0
 
   accountCid2 <- submit alice do

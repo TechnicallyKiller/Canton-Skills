@@ -37,8 +37,29 @@ make stop     # stop
 ```
 
 Ports: SV `4xxx`, app-provider `3xxx`, app-user `2xxx`. Suffix **`901` = Ledger API
-(gRPC)**, **`975` = JSON API (HTTP)**. Web UIs at `http://wallet.localhost:2000`
-(user), `:3000` (provider), `http://sv.localhost:4000`.
+(gRPC)**, **`975` = JSON API (HTTP)** — e.g. health at `http://localhost:3975/v2/livez`.
+Web UIs at `http://wallet.localhost:2000` (user), `:3000` (provider),
+`http://sv.localhost:4000`.
+
+Splice images are pulled from **`ghcr.io/digital-asset/decentralized-canton-sync`**
+(public — no credentials needed; auth errors usually mean a Docker config issue, see
+below).
+
+### LocalNet gotchas (verified bringing it up on Windows/WSL, 2026-06)
+
+- **`make setup` is interactive** (a Gradle wizard prompting for env vars) — it can't
+  be scripted. To automate/CI, skip it and write `quickstart/.env.local` directly:
+  `OBSERVABILITY_ENABLED=false`, `AUTH_MODE=shared-secret`,
+  `PARTY_HINT=<org>-<role>-<n>`, `TEST_MODE=off`.
+- **First `make start` often reports "container canton is unhealthy"** even when
+  Canton is fine — the health check races gRPC readiness. **Wait ~60s and re-run
+  `make start`**; it succeeds.
+- **Windows: CRLF breaks the shell scripts.** Cloned `gradlew`/`*.sh` get `\r`, so
+  WSL runs `/bin/sh^M` → exit 126. Fix first:
+  `find . -name "*.sh" -o -name gradlew | xargs sed -i 's/\r//'`.
+- **WSL + Docker Desktop: the credential helper breaks builds.** `~/.docker/config.json`
+  has `"credsStore": "desktop.exe"`, which isn't on the WSL PATH, so `docker compose
+  build` fails even for public images. Fix: `printf '{"auths": {}}' > ~/.docker/config.json`.
 
 ## Environment progression
 

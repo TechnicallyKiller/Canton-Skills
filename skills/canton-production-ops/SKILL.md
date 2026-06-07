@@ -35,8 +35,12 @@ by category**:
 > A `DEADLINE_EXCEEDED` does **not** mean the command failed — it may have
 > succeeded. **Verify non-completion before resubmitting**, and rely on
 > deduplication: a second command with the same `commandId` returns the first's
-> result. Generate **deterministic** ids (userId + action + nonce) so retries are
-> idempotent.
+> result. Generate **deterministic** ids (e.g. `SHA-256(party:action:key)`) so
+> retries are idempotent — no client-side state needed.
+
+> **Scope:** `commandId` dedup is **per-participant, per-`actAs` party set** — not
+> global. Two different parties submitting the same `commandId` are fully
+> independent, so a hash that includes the party is safe.
 
 ## Security hardening
 

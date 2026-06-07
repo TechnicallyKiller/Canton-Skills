@@ -82,3 +82,14 @@ docs guidance: use a recent stable Daml SDK with matching major.minor (3.4.x).
   `Transfer` record source-verified against docs.sync.global + the splice
   `token-standard/` source. `canton-wallet-integration` dApp SDK API verified
   against the `@canton-network/dapp-sdk` npm package.
+- **2026-06-05** — **Dogfooded** the catalog by building a real Spring + LocalNet
+  invoice-financing app (`E:\canton-invoice-financing`). This verified the four
+  app-level skills (ledger-api, app-architecture, deployment, production-ops) against
+  a running system → all bumped to ✅. Fixed the discrepancies it surfaced (see
+  [feedback/invoice-financing-findings.md](feedback/invoice-financing-findings.md)):
+  ❌ removed `applicationId` from Ledger API (JWT-conveyed in v2); ❌ noted `Date` is
+  built-in (no `DA.Date` import) and `allocatePartyExact` needs splice-util;
+  ❌ clarified authority does **not** propagate into nested exercises (co-controller
+  fix + worked example); swept the deprecated `submitMulti` → `submit (actAs […])`
+  (examples re-verified passing); added the Windows/WSL LocalNet gotchas, Java-binding
+  gotchas, codegen Gradle wiring, and `commandId` scope note.
