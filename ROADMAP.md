@@ -22,6 +22,7 @@ This catalog is built in phases. Each skill moves through four stages:
 | 3 | `canton-deployment` | **draft** | `knowledge-base/deployment-notes.md` |
 | 3 | `daml-contract-upgrades` | **draft** | `knowledge-base/upgrades-notes.md` |
 | 3 | `canton-production-ops` | **draft** | `knowledge-base/production-ops-notes.md` |
+| 4 | `canton-evm` (Zenith) | **draft (docs-verified)** | `knowledge-base/zenith-evm-notes.md` |
 
 ## Phase ordering — and why
 
@@ -37,6 +38,13 @@ value, so this is near-core).
 **Phase 3 (lifecycle & ops).** Wallets/exchanges, deployment, upgrades, and
 production operations — essential for shipping, but they build on a correct model
 and a working app.
+
+**Phase 4 (the EVM/Zenith track).** `canton-evm` covers building Solidity apps on
+Canton via **Zenith** (the EVM execution layer; SVM next, MainNet ~Q2 2026). Strategic
+bet: as EVM/SVM becomes the on-ramp for the broader dev population, the durable value
+shifts from Daml-syntax to **"build correctly on Canton, in any VM"** — the
+mental-model corrections transfer, and Daml still backs Canton-native assets +
+each Zenith env's coordination contract. Expect a `canton-svm` sibling later.
 
 ## Definition of done (per skill)
 
@@ -82,6 +90,11 @@ docs guidance: use a recent stable Daml SDK with matching major.minor (3.4.x).
   `Transfer` record source-verified against docs.sync.global + the splice
   `token-standard/` source. `canton-wallet-integration` dApp SDK API verified
   against the `@canton-network/dapp-sdk` npm package.
+- **2026-06-05** — Added **`canton-evm`** (Zenith track), authored from the Zenith
+  docs (introduction / zenith-evm / zenith-stack). Docs-verified only — pre-MainNet,
+  not yet run against a live Zenith RPC. Captures the EVM-dev gotchas: determinism
+  (validators re-execute), permissioned/privacy-scoped state, `external_call()` atomic
+  composability (not a bridge), and that Daml still backs Canton-native assets.
 - **2026-06-05** — **Dogfooded** the catalog by building a real Spring + LocalNet
   invoice-financing app (`E:\canton-invoice-financing`). This verified the four
   app-level skills (ledger-api, app-architecture, deployment, production-ops) against

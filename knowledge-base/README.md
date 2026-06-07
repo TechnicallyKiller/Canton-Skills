@@ -28,6 +28,7 @@ documentation is distilled here into source-linked notes. Skills are authored
 | [`deployment-notes.md`](deployment-notes.md) | `canton-deployment` | M5 deployment, party/package mgmt |
 | [`upgrades-notes.md`](upgrades-notes.md) | `daml-contract-upgrades` | M6 smart-contract upgrades |
 | [`production-ops-notes.md`](production-ops-notes.md) | `canton-production-ops` | M7 production operations, node ops |
+| [`zenith-evm-notes.md`](zenith-evm-notes.md) | `canton-evm` | Zenith docs (EVM-on-Canton) |
 
 See [`source-map.md`](source-map.md) for the full docs → skill mapping.
 

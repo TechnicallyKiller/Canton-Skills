@@ -68,6 +68,7 @@ building a real app against it (see [feedback/](feedback/)) ·
 | [`canton-deployment`](skills/canton-deployment) | LocalNet → DevNet, party & package management, CI/CD | ✅ |
 | [`daml-contract-upgrades`](skills/daml-contract-upgrades) | Smart-contract upgrades: compatibility, package naming/selection | ✅ |
 | [`canton-production-ops`](skills/canton-production-ops) | Security, compliance, performance, error handling, monitoring | ✅ |
+| [`canton-evm`](skills/canton-evm) | **EVM/Solidity on Canton via Zenith** — tooling, `external_call` atomic composability, determinism, Daml interop | 📄 |
 
 > Honesty note: the ✅ skills are proven — Daml ones against the real compiler, the
 > app-level ones (ledger-api, app-architecture, deployment, production-ops) by

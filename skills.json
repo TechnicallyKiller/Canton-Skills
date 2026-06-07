@@ -23,6 +23,7 @@
     { "name": "canton-wallet-integration", "path": "skills/canton-wallet-integration", "phase": 3, "stage": "draft" },
     { "name": "canton-deployment", "path": "skills/canton-deployment", "phase": 3, "stage": "draft" },
     { "name": "daml-contract-upgrades", "path": "skills/daml-contract-upgrades", "phase": 3, "stage": "draft" },
-    { "name": "canton-production-ops", "path": "skills/canton-production-ops", "phase": 3, "stage": "draft" }
+    { "name": "canton-production-ops", "path": "skills/canton-production-ops", "phase": 3, "stage": "draft" },
+    { "name": "canton-evm", "path": "skills/canton-evm", "phase": 4, "stage": "draft" }
   ]
 }
